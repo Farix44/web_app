@@ -9,4 +9,7 @@ class Wnioski(models.Model):
     okres = models.PositiveSmallIntegerField(default=6, validators=[MinValueValidator(1), MaxValueValidator(36)])
 
     def __str__(self):
-        return 'kredyt na kwotę: ' + str(self.kwota)
+        return self.wniosek_rekord()
+
+    def wniosek_rekord(self):
+        return "{}: {}".format(self.kredytobiorca, self.kwota)
