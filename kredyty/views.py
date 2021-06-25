@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import Wnioski
 from .forms import WnioskiForm
 from django.contrib.auth.decorators import login_required
+import datetime
 
 # Create your views here.
 
@@ -17,7 +18,13 @@ def nowy_wniosek(request):
     if form.is_valid():
         form.save()
         return redirect(lista_kredytow)
-    return render(request, 'wniosek_form.html', {'form': form})
+
+    curr_time = datetime.datetime.now()
+    if curr_time.hour < 6:
+        wszystkie = Wnioski.objects.all()
+        return render(request, 'zla_godzina.html')
+    else:
+        return render(request, 'wniosek_form.html', {'form': form})
 
 @login_required
 def edytuj_wniosek(request, id):

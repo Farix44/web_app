@@ -1,0 +1,14 @@
+{% extends 'glowny.html' %}
+{% load bootstrap %}
+{% block tytul %} Login {% endblock %}
+
+{% block strona %}
+
+<div class="card" style="width: 32rem;">
+    <div class="card-body">
+        <h5 class="card-title">Wnioski można składać od 6.00 rano do 24.00</h5>
+    </div>
+</div>
+
+    <a href="{% url 'lista_kredytow' %}">Wróć</a>
+{% endblock %}
