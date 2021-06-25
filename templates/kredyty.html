@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,12 +7,17 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="{% static 'kredyty_styl.css' %}">
 </head>
 <body>
+    <a href="{% url 'nowy_wniosek' %}">Nowy wniosek</a>
     <h2>Lista Kredytów:</h2>
-
     {% for wniosek in wnioski %}
-        <p>{{ wniosek }}</p>
+    <!--        <p>{{ wniosek }}</p>-->
+        <h3>{{ wniosek }}</h3>
+        <p>{{ wniosek.kwota }}</p>
+        <a href="{% url 'edytuj_wniosek' wniosek.id %}">Edytuj</a>
+        <a href="{% url 'usun_wniosek' wniosek.id %}">Usun</a>
     {% endfor %}
 </body>
 </html>
