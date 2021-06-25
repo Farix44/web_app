@@ -37,6 +37,8 @@ python3 manage.py migrate
 
 python3 manage.py runserver
 
+pip install django-bootstrap-form
+
 
 Utworzenie uytkownika admina (tylko login i haslo, mail zostawic pusty)
 
