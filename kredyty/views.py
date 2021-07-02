@@ -21,7 +21,7 @@ def nowy_wniosek(request):
 
     curr_time = datetime.datetime.now()
     if curr_time.hour < 6:
-        wszystkie = Wnioski.objects.all()
+        # wszystkie = Wnioski.objects.all()
         return render(request, 'zla_godzina.html')
     else:
         return render(request, 'wniosek_form.html', {'form': form})
