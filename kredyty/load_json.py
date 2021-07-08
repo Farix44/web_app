@@ -1,0 +1,18 @@
+import json
+import os
+
+class ConfigData:
+    def __init__(self,):
+        self.json_data = {}
+        self.read_json()
+
+    def read_json(self):
+        try:
+            with open(os.path.join('kredyty', 'kredyty_config.json'), 'r') as f:
+                json_string = f.read()
+            self.json_data = json.loads(json_string)
+        except Exception as ex:
+            print("Nie udalo sie wczytac 'kredyty_config.json' ")
+
+    def get_data(self):
+        return self.json_data
