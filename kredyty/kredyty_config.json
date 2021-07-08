@@ -5,5 +5,6 @@
   "min_kwota": 200,
   "max_kwota": 10000,
   "min_okres": 1,
-  "max_okres": 36
+  "max_okres": 36,
+  "oprocentowanie": 8
 }

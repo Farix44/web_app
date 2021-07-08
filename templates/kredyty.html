@@ -18,14 +18,11 @@
     <!--        <p>{{ wniosek }}</p>-->
     <div class="card" style="width: 32rem;">
         <div class="card-body">
-            <h5 class="card-title">{{ wniosek.kredytobiorca }}</h5>
+            <h5 class="card-title">{{ wniosek.imie }} {{ wniosek.nazwisko }}</h5>
             <p class="card-text">{{ wniosek.kwota }} złotych, na {{ wniosek.okres }} miesięcy</p>
-<!--            <p class="card-text">{{ wniosek.okres }} miesięcy</p>-->
             <a href="{% url 'edytuj_wniosek' wniosek.id %}"><i class="fas fa-1x fa-edit"></i></a>
             <a href="{% url 'usun_wniosek' wniosek.id %}"><i class="fas fa-1x fa-trash-alt"></i></a>
         </div>
     </div>
-<!--        <h3>{{ wniosek }}</h3>-->
-<!--        <p>{{ wniosek.kwota }}</p>-->
     {% endfor %}
 {% endblock %}
