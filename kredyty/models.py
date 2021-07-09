@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from .load_json import ConfigData
 
 # Create your models here.
 
@@ -10,7 +11,9 @@ class Wnioski(models.Model):
     kwota = models.PositiveIntegerField(default=200, validators=[MinValueValidator(200),
                                                                  MaxValueValidator(10000)])
     okres = models.PositiveSmallIntegerField(default=6, validators=[MinValueValidator(1), MaxValueValidator(36)])
-    oprocentowanie = models.FloatField(default=8)
+    oprocentowanie = models.FloatField(default=ConfigData().get_data()['oprocentowanie'],
+                                       validators=[MinValueValidator(ConfigData().get_data()['oprocentowanie']),
+                                                   MaxValueValidator(ConfigData().get_data()['oprocentowanie'])])
 
     def __str__(self):
         return self.wniosek_rekord()
