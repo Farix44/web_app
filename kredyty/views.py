@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 import json
 import os
 from .load_json import ConfigData
+from .loan_validation import LoanValidation
 
 # Create your views here.
 
@@ -23,14 +24,14 @@ def nowy_wniosek(request):
         form.save()
         return redirect(lista_kredytow)
 
-    min_godz = ConfigData().get_data()['min_godzina']
-    max_godz = ConfigData().get_data()['max_godzina']
     curr_time = datetime.now() + timedelta(hours = ConfigData().get_data()['roznica_czasu_godz'])   # timedelta - poprawka roznicy czasu
+    factors = {}
+    factors["godzina"] = curr_time.hour
 
-    if ( curr_time.hour < min_godz or curr_time.hour > max_godz):
-        return render(request, 'zla_godzina.html')
-    else:
+    if LoanValidation(factors).validate() == True:
         return render(request, 'wniosek_form.html', {'form': form})
+    else:
+        return render(request, 'zla_godzina.html')
 
 @login_required
 def edytuj_wniosek(request, id):

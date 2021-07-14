@@ -1,6 +1,8 @@
 import json
 import os
-from load_json import ConfigData
+from load_json import ConfigData, ConfigDataNB
+from loan_validation import LoanValidation
+from datetime import datetime, timedelta
 
 # jj = str()
 # with open('kredyty_config.json', 'r') as f:
@@ -20,6 +22,33 @@ from load_json import ConfigData
 # c = ConfigData()
 # value = c.get_data()['max_godzina']
 # print(value)
-print(ConfigData().get_data()['min_godzina'])
-c = ConfigData()
-print(c.get_data())
+# print(ConfigData().get_data()['min_godzina'])
+# c = ConfigData()
+# print(c.get_data())
+
+
+# data = ConfigDataNB().get_data()
+# print(data)
+
+# for i in data:
+#     print(i, data[i])
+
+# curr_time = datetime.now() + timedelta(hours = ConfigDataNB().get_data()['roznica_czasu_godz'])   # timedelta - poprawka roznicy czasu
+# f_dict = {"godzina": curr_time.hour}
+# a = LoanValidation(f_dict)
+# print(a.validate())
+
+curr_time = datetime.now() + timedelta(hours = ConfigDataNB().get_data()['roznica_czasu_godz'])   # timedelta - poprawka roznicy czasu
+factors = {}
+factors["godzina"] = curr_time.hour
+print(LoanValidation(factors).validate())
+
+# TO DO:
+# zmienne na angielski
+# valid klasa
+# testy
+# przeczytac artykuly
+# wzorce projektowe w django
+# doczytac jak dziala button submit z kodem z views.py
+# stackoverflow spytac o podawanie sciezki do pliku
+# dodac komentarze do klas
