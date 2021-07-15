@@ -5,16 +5,15 @@ from .load_json import ConfigData
 # Create your models here.
 
 class Loans(models.Model):
-    # kredytobiorca = models.CharField(max_length=64)
     first_name = models.CharField(max_length=64)
     second_name = models.CharField(max_length=64)
-    amount = models.PositiveIntegerField(default=200, validators=[MinValueValidator(ConfigData().get_data()['min_kwota']),
-                                                                  MaxValueValidator(ConfigData().get_data()['max_kwota'])])
-    period = models.PositiveSmallIntegerField(default=6, validators=[MinValueValidator(ConfigData().get_data()['min_okres']),
-                                                                     MaxValueValidator(ConfigData().get_data()['max_okres'])])
-    interest_rate = models.FloatField(default=ConfigData().get_data()['oprocentowanie'],
-                                      validators=[MinValueValidator(ConfigData().get_data()['oprocentowanie']),
-                                                   MaxValueValidator(ConfigData().get_data()['oprocentowanie'])])
+    amount = models.PositiveIntegerField(default=200, validators=[MinValueValidator(ConfigData().get_data()['min_amount']),
+                                                                  MaxValueValidator(ConfigData().get_data()['max_amount'])])
+    period = models.PositiveSmallIntegerField(default=6, validators=[MinValueValidator(ConfigData().get_data()['min_period']),
+                                                                     MaxValueValidator(ConfigData().get_data()['max_period'])])
+    interest_rate = models.FloatField(default=ConfigData().get_data()['interest_rate'],
+                                      validators=[MinValueValidator(ConfigData().get_data()['interest_rate']),
+                                                   MaxValueValidator(ConfigData().get_data()['interest_rate'])])
 
     def __str__(self):
         return self.loan_record()

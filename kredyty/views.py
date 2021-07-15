@@ -24,9 +24,9 @@ def new_loan(request):
         form.save()
         return redirect(loan_list)
 
-    curr_time = datetime.now() + timedelta(hours = ConfigData().get_data()['roznica_czasu_godz'])   # timedelta - poprawka roznicy czasu
+    curr_time = datetime.now() + timedelta(hours = ConfigData().get_data()['time_zone_difference'])   # timedelta - poprawka roznicy czasu
     factors = {}
-    factors["godzina"] = curr_time.hour
+    factors["hour"] = curr_time.hour
 
     if LoanValidation(factors).validate() == True:
         return render(request, 'wniosek_form.html', {'form': form})

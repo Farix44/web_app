@@ -1,10 +1,10 @@
 {
-  "min_godzina": 6,
-  "max_godzina": 24,
-  "roznica_czasu_godz": 2,
-  "min_kwota": 200,
-  "max_kwota": 10000,
-  "min_okres": 1,
-  "max_okres": 36,
-  "oprocentowanie": 8
+  "min_hour": 6,
+  "max_hour": 24,
+  "time_zone_difference": 2,
+  "min_amount": 200,
+  "max_amount": 10000,
+  "min_period": 1,
+  "max_period": 36,
+  "interest_rate": 8
 }
