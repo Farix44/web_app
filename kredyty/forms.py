@@ -4,4 +4,4 @@ from .models import Loans
 class WnioskiForm(ModelForm):
     class Meta:
         model = Loans
-        fields = ['imie', 'nazwisko', 'kwota', 'okres', 'oprocentowanie']
+        fields = ['first_name', 'second_name', 'amount', 'period', 'interest_rate']

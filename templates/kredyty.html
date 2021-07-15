@@ -15,11 +15,10 @@
     <a href="{% url 'nowy_wniosek' %}">Nowy wniosek <i class="fas fa-plus-circle"></i></a>
     <h2>Lista Kredytów:</h2>
     {% for wniosek in wnioski %}
-    <!--        <p>{{ wniosek }}</p>-->
     <div class="card" style="width: 32rem;">
         <div class="card-body">
-            <h5 class="card-title">{{ wniosek.imie }} {{ wniosek.nazwisko }}</h5>
-            <p class="card-text">{{ wniosek.kwota }} złotych, na {{ wniosek.okres }} miesięcy</p>
+            <h5 class="card-title">{{ wniosek.first_name }} {{ wniosek.second_name }}</h5>
+            <p class="card-text">{{ wniosek.amount }} złotych, na {{ wniosek.period }} miesięcy</p>
             <a href="{% url 'edytuj_wniosek' wniosek.id %}"><i class="fas fa-1x fa-edit"></i></a>
             <a href="{% url 'usun_wniosek' wniosek.id %}"><i class="fas fa-1x fa-trash-alt"></i></a>
         </div>
