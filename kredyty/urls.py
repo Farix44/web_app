@@ -1,9 +1,9 @@
 from django.urls import path
-from kredyty.views import lista_kredytow, nowy_wniosek, edytuj_wniosek, usun_wniosek
+from kredyty.views import loan_list, new_loan, edit_loan, delete_loan
 
 urlpatterns = [
-    path('lista/', lista_kredytow, name="lista_kredytow"),
-    path('nowy/', nowy_wniosek, name="nowy_wniosek"),
-    path('edytuj/<int:id>/', edytuj_wniosek, name="edytuj_wniosek"),
-    path('usun/<int:id>/', usun_wniosek, name="usun_wniosek"),
+    path('lista/', loan_list, name="lista_kredytow"),
+    path('nowy/', new_loan, name="nowy_wniosek"),
+    path('edytuj/<int:id>/', edit_loan, name="edytuj_wniosek"),
+    path('usun/<int:id>/', delete_loan, name="usun_wniosek"),
 ]

@@ -12,17 +12,17 @@ from .loan_validation import LoanValidation
 
 # Create your views here.
 
-def lista_kredytow(request):
-    wszystkie = Wnioski.objects.all()
-    return render(request, 'kredyty.html', {'wnioski': wszystkie})
+def loan_list(request):
+    all_loans = Wnioski.objects.all()
+    return render(request, 'kredyty.html', {'wnioski': all_loans})
 
 @login_required
-def nowy_wniosek(request):
+def new_loan(request):
     form = WnioskiForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():
         form.save()
-        return redirect(lista_kredytow)
+        return redirect(loan_list)
 
     curr_time = datetime.now() + timedelta(hours = ConfigData().get_data()['roznica_czasu_godz'])   # timedelta - poprawka roznicy czasu
     factors = {}
@@ -34,22 +34,22 @@ def nowy_wniosek(request):
         return render(request, 'zla_godzina.html')
 
 @login_required
-def edytuj_wniosek(request, id):
-    wniosek = get_object_or_404(Wnioski, pk=id)
+def edit_loan(request, id):
+    loan = get_object_or_404(Wnioski, pk=id)
     form = WnioskiForm(request.POST or None, request.FILES or None,
-                       instance=wniosek)
+                       instance=loan)
 
     if form.is_valid():
         form.save()
-        return redirect(lista_kredytow)
+        return redirect(loan_list)
     return render(request, 'wniosek_form.html', {'form': form})
 
 @login_required
-def usun_wniosek(request, id):
-    wniosek = get_object_or_404(Wnioski, pk=id)
+def delete_loan(request, id):
+    loan = get_object_or_404(Wnioski, pk=id)
 
     if request.method == "POST":
-        wniosek.delete()
-        return redirect(lista_kredytow)
+        loan.delete()
+        return redirect(loan_list)
 
-    return render(request, 'potwierdz.html', {'wniosek': wniosek})
+    return render(request, 'potwierdz.html', {'wniosek': loan})
