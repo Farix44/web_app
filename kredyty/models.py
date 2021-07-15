@@ -4,7 +4,7 @@ from .load_json import ConfigData
 
 # Create your models here.
 
-class Wnioski(models.Model):
+class Loans(models.Model):
     # kredytobiorca = models.CharField(max_length=64)
     imie = models.CharField(max_length=64)
     nazwisko = models.CharField(max_length=64)

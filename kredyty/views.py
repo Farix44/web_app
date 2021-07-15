@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import Wnioski
+from .models import Loans
 from .forms import WnioskiForm
 from django.contrib.auth.decorators import login_required
 # import datetime
@@ -13,7 +13,7 @@ from .loan_validation import LoanValidation
 # Create your views here.
 
 def loan_list(request):
-    all_loans = Wnioski.objects.all()
+    all_loans = Loans.objects.all()
     return render(request, 'kredyty.html', {'wnioski': all_loans})
 
 @login_required
@@ -35,7 +35,7 @@ def new_loan(request):
 
 @login_required
 def edit_loan(request, id):
-    loan = get_object_or_404(Wnioski, pk=id)
+    loan = get_object_or_404(Loans, pk=id)
     form = WnioskiForm(request.POST or None, request.FILES or None,
                        instance=loan)
 
@@ -46,7 +46,7 @@ def edit_loan(request, id):
 
 @login_required
 def delete_loan(request, id):
-    loan = get_object_or_404(Wnioski, pk=id)
+    loan = get_object_or_404(Loans, pk=id)
 
     if request.method == "POST":
         loan.delete()

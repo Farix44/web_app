@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Wnioski
+from .models import Loans
 # Register your models here.
 
-admin.site.register(Wnioski)
+admin.site.register(Loans)
 # @admin.register(Wnioski)
 # class WnioskiAdmin(admin.ModelAdmin):
 #     list_display = ["kredytobiorca", "kwota", "okres"]

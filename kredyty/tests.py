@@ -1,6 +1,6 @@
 from django.test import TestCase
 import unittest
-from .models import Wnioski
+from .models import Loans
 
 # Create your tests here.
 
