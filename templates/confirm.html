@@ -1,12 +1,12 @@
 {% extends 'main.html' %}
 
-{% block tytul %} Potwierdz {% endblock %}
+{% block tytul %} Confirm {% endblock %}
 
 {% block strona %}
-    <h1>Czy na pewno chcesz usunąć wniosek użytkownika {{ loan.first_name }} {{ loan.second_name }} na kwote {{ loan.amount }}?</h1>
+    <h1>Do you want to delete loan: {{ loan.first_name }} {{ loan.second_name }} for {{ loan.amount }}zł?</h1>
     <form method="post">
         {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Usun wniosek</button>
+        <button type="submit" class="btn btn-danger">Delete loan</button>
     </form>
-    <a href="{% url 'loan_list' %}">Cofnij</a>
+    <a href="{% url 'loan_list' %}">Back</a>
 {% endblock %}

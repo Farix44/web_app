@@ -1,10 +1,10 @@
 {% extends 'main.html' %}
 
-{% block tytul %} Lista Wniosków {% endblock %}
+{% block tytul %} Loans List {% endblock %}
 
 {% block strona %}
     {% if user.is_authenticated %}
-        Witaj {{ user.username }}<br>
+        Welcome {{ user.username }}<br>
         <a href="{% url 'logout' %}">Logout <i class="fas fa-sign-out-alt"></i></a>
     {% else %}
         <a href="{% url 'login' %}">Login <i class="fas fa-sign-in-alt"></i></a>
@@ -12,13 +12,13 @@
 
     <hr>
 
-    <a href="{% url 'new_loan' %}">Nowy wniosek <i class="fas fa-plus-circle"></i></a>
-    <h2>Lista Kredytów:</h2>
+    <a href="{% url 'new_loan' %}">Add new loan <i class="fas fa-plus-circle"></i></a>
+    <h2>Loans list:</h2>
     {% for loan in loans %}
     <div class="card" style="width: 32rem;">
         <div class="card-body">
             <h5 class="card-title">{{ loan.first_name }} {{ loan.second_name }}</h5>
-            <p class="card-text">{{ loan.amount }} złotych, na {{ loan.period }} miesięcy</p>
+            <p class="card-text">{{ loan.amount }} zł, for {{ loan.period }} months</p>
             <a href="{% url 'edit_loan' loan.id %}"><i class="fas fa-1x fa-edit"></i></a>
             <a href="{% url 'delete_loan' loan.id %}"><i class="fas fa-1x fa-trash-alt"></i></a>
         </div>
