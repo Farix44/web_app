@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Loans
-from .forms import WnioskiForm
+from .forms import LoansForm
 from django.contrib.auth.decorators import login_required
 # import datetime
 from datetime import datetime, timedelta
@@ -18,7 +18,7 @@ def loan_list(request):
 
 @login_required
 def new_loan(request):
-    form = WnioskiForm(request.POST or None, request.FILES or None)
+    form = LoansForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():
         form.save()
@@ -36,8 +36,8 @@ def new_loan(request):
 @login_required
 def edit_loan(request, id):
     loan = get_object_or_404(Loans, pk=id)
-    form = WnioskiForm(request.POST or None, request.FILES or None,
-                       instance=loan)
+    form = LoansForm(request.POST or None, request.FILES or None,
+                     instance=loan)
 
     if form.is_valid():
         form.save()

@@ -13,7 +13,7 @@ class ConfigData:
                 json_string = f.read()
             self.json_data = json.loads(json_string)
         except Exception as ex:
-            print("Nie udalo sie wczytac 'kredyty_config.json' ")
+            print("Failed to load 'kredyty_config.json' ")
 
     def get_data(self):
         return self.json_data
@@ -30,7 +30,7 @@ class ConfigDataNB:
                 json_string = f.read()
             self.json_data = json.loads(json_string)
         except Exception as ex:
-            print("Nie udalo sie wczytac 'kredyty_config.json' ")
+            print("Failed to load 'kredyty_config.json' ")
 
     def get_data(self):
         return self.json_data
