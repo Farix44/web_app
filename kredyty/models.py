@@ -5,7 +5,7 @@ from .load_json import ConfigData
 # Create your models here.
 
 class Wnioski(models.Model):
-    kredytobiorca = models.CharField(max_length=64)
+    # kredytobiorca = models.CharField(max_length=64)
     imie = models.CharField(max_length=64)
     nazwisko = models.CharField(max_length=64)
     kwota = models.PositiveIntegerField(default=200, validators=[MinValueValidator(ConfigData().get_data()['min_kwota']),
