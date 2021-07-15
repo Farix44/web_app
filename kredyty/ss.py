@@ -1,7 +1,7 @@
 import json
 import os
 from load_json import ConfigData, ConfigDataNB
-from loan_validation import LoanValidation
+# from loan_validation import LoanValidation
 from datetime import datetime, timedelta
 
 # jj = str()
@@ -38,17 +38,20 @@ from datetime import datetime, timedelta
 # a = LoanValidation(f_dict)
 # print(a.validate())
 
-curr_time = datetime.now() + timedelta(hours = ConfigDataNB().get_data()['roznica_czasu_godz'])   # timedelta - poprawka roznicy czasu
-factors = {}
-factors["godzina"] = curr_time.hour
-print(LoanValidation(factors).validate())
+# curr_time = datetime.now() + timedelta(hours = ConfigDataNB().get_data()['roznica_czasu_godz'])   # timedelta - poprawka roznicy czasu
+# factors = {}
+# factors["godzina"] = curr_time.hour
+# print(LoanValidation(factors).validate())
+
+data = ConfigDataNB()
+print(data.json_data)
 
 # TO DO:
-# zmienne na angielski
-# valid klasa
-# testy
-# przeczytac artykuly
+# (DONE) zmienne na angielski
+# (DONE) valid klasa
+# testy  ( ./manage.py test )
+# (DONE) przeczytac artykuly
 # wzorce projektowe w django
 # doczytac jak dziala button submit z kodem z views.py
 # stackoverflow spytac o podawanie sciezki do pliku
-# dodac komentarze do klas
+# (DONE) dodac komentarze do klas
