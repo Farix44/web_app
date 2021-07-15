@@ -17,7 +17,7 @@ class Loans(models.Model):
                                                    MaxValueValidator(ConfigData().get_data()['oprocentowanie'])])
 
     def __str__(self):
-        return self.wniosek_rekord()
+        return self.loan_record()
 
-    def wniosek_rekord(self):
+    def loan_record(self):
         return "{} {}: {}".format(self.first_name, self.second_name, self.amount)

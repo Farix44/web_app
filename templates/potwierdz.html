@@ -3,7 +3,7 @@
 {% block tytul %} Potwierdz {% endblock %}
 
 {% block strona %}
-    <h1>Czy na pewno chcesz usunąć wniosek użytkownika {{ wniosek.first_name }} {{ wniosek.second_name }} na kwote {{ wniosek.amount }}?</h1>
+    <h1>Czy na pewno chcesz usunąć wniosek użytkownika {{ loan.first_name }} {{ loan.second_name }} na kwote {{ loan.amount }}?</h1>
     <form method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Usun wniosek</button>

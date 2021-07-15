@@ -14,7 +14,7 @@ from .loan_validation import LoanValidation
 
 def loan_list(request):
     all_loans = Loans.objects.all()
-    return render(request, 'kredyty.html', {'wnioski': all_loans})
+    return render(request, 'kredyty.html', {'loans': all_loans})
 
 @login_required
 def new_loan(request):
@@ -52,4 +52,4 @@ def delete_loan(request, id):
         loan.delete()
         return redirect(loan_list)
 
-    return render(request, 'potwierdz.html', {'wniosek': loan})
+    return render(request, 'potwierdz.html', {'loan': loan})

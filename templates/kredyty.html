@@ -14,13 +14,13 @@
 
     <a href="{% url 'nowy_wniosek' %}">Nowy wniosek <i class="fas fa-plus-circle"></i></a>
     <h2>Lista Kredytów:</h2>
-    {% for wniosek in wnioski %}
+    {% for loan in loans %}
     <div class="card" style="width: 32rem;">
         <div class="card-body">
-            <h5 class="card-title">{{ wniosek.first_name }} {{ wniosek.second_name }}</h5>
-            <p class="card-text">{{ wniosek.amount }} złotych, na {{ wniosek.period }} miesięcy</p>
-            <a href="{% url 'edytuj_wniosek' wniosek.id %}"><i class="fas fa-1x fa-edit"></i></a>
-            <a href="{% url 'usun_wniosek' wniosek.id %}"><i class="fas fa-1x fa-trash-alt"></i></a>
+            <h5 class="card-title">{{ loan.first_name }} {{ loan.second_name }}</h5>
+            <p class="card-text">{{ loan.amount }} złotych, na {{ loan.period }} miesięcy</p>
+            <a href="{% url 'edytuj_wniosek' loan.id %}"><i class="fas fa-1x fa-edit"></i></a>
+            <a href="{% url 'usun_wniosek' loan.id %}"><i class="fas fa-1x fa-trash-alt"></i></a>
         </div>
     </div>
     {% endfor %}
