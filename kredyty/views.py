@@ -29,9 +29,9 @@ def new_loan(request):
     factors["hour"] = curr_time.hour
 
     if LoanValidation(factors).validate() == True:
-        return render(request, 'wniosek_form.html', {'form': form})
+        return render(request, 'loan_form.html', {'form': form})
     else:
-        return render(request, 'zla_godzina.html')
+        return render(request, 'wrong_hour.html')
 
 @login_required
 def edit_loan(request, id):
@@ -42,7 +42,7 @@ def edit_loan(request, id):
     if form.is_valid():
         form.save()
         return redirect(loan_list)
-    return render(request, 'wniosek_form.html', {'form': form})
+    return render(request, 'loan_form.html', {'form': form})
 
 @login_required
 def delete_loan(request, id):
@@ -52,4 +52,4 @@ def delete_loan(request, id):
         loan.delete()
         return redirect(loan_list)
 
-    return render(request, 'potwierdz.html', {'loan': loan})
+    return render(request, 'confirm.html', {'loan': loan})
