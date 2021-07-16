@@ -46,6 +46,8 @@ from datetime import datetime, timedelta
 data = ConfigDataNB()
 print(data.json_data)
 
+# push test
+
 # TO DO:
 # (DONE) zmienne na angielski
 # (DONE) valid klasa
