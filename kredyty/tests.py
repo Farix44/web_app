@@ -1,8 +1,8 @@
 from django.test import TestCase
 import unittest
-from .models import Loans
 from .load_json import ConfigData
-from .loan_validation import LoanValidation
+from kredyty.validators.loan_validation_hour import LoanValidationHour
+from kredyty.validators.check_loan_validators import CheckLoanValidators
 
 # Create your tests here.
 
@@ -20,22 +20,20 @@ class TestConfigData(TestCase):
         self.assertNotIn('dragon', data.json_data)
         self.assertNotIn('pigeon', data.json_data)
 
-class TestLoanValidation(TestCase):
+class TestLoanValidationHour(TestCase):
 
     def test_validate(self):
-        self.assertEqual(LoanValidation({"hour": 12}).validate(), True)
-        self.assertEqual(LoanValidation({"hour": 7}).validate(), True)
-        self.assertEqual(LoanValidation({"hour": 23}).validate(), True)
-        self.assertEqual(LoanValidation({"hour": 1}).validate(), False)
-        self.assertEqual(LoanValidation({"hour": 5}).validate(), False)
+        self.assertEqual(LoanValidationHour({"hour": 12}).validate(), True)
+        self.assertEqual(LoanValidationHour({"hour": 7}).validate(), True)
+        self.assertEqual(LoanValidationHour({"hour": 23}).validate(), True)
+        self.assertEqual(LoanValidationHour({"hour": 1}).validate(), False)
+        self.assertEqual(LoanValidationHour({"hour": 5}).validate(), False)
 
-        self.assertNotEqual(LoanValidation({"hour": 8}).validate(), False)
-        self.assertNotEqual(LoanValidation({"hour": 19}).validate(), False)
-        self.assertNotEqual(LoanValidation({"hour": 22}).validate(), False)
-        self.assertNotEqual(LoanValidation({"hour": 5}).validate(), True)
-        self.assertNotEqual(LoanValidation({"hour": 3}).validate(), True)
-
-
+        self.assertNotEqual(LoanValidationHour({"hour": 8}).validate(), False)
+        self.assertNotEqual(LoanValidationHour({"hour": 19}).validate(), False)
+        self.assertNotEqual(LoanValidationHour({"hour": 22}).validate(), False)
+        self.assertNotEqual(LoanValidationHour({"hour": 5}).validate(), True)
+        self.assertNotEqual(LoanValidationHour({"hour": 3}).validate(), True)
 
 
 if __name__ == '__main__':

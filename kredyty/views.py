@@ -1,14 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
 from .models import Loans
 from .forms import LoansForm
 from django.contrib.auth.decorators import login_required
 # import datetime
 from datetime import datetime, timedelta
-import json
-import os
 from .load_json import ConfigData
-from .loan_validation import LoanValidation
+from kredyty.validators.loan_validation_hour import LoanValidationHour
+from kredyty.validators.check_loan_validators import CheckLoanValidators
 
 # Create your views here.
 
@@ -24,11 +22,7 @@ def new_loan(request):
         form.save()
         return redirect(loan_list)
 
-    curr_time = datetime.now() + timedelta(hours = ConfigData().get_data()['time_zone_difference'])   # timedelta - poprawka roznicy czasu
-    factors = {}
-    factors["hour"] = curr_time.hour
-
-    if LoanValidation(factors).validate() == True:
+    if CheckLoanValidators().validate() == True:
         return render(request, 'loan_form.html', {'form': form})
     else:
         return render(request, 'wrong_hour.html')
