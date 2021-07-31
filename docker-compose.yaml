@@ -1,0 +1,6 @@
+version: "2"
+services:
+  django-sample:
+    image: "farix44/django_web_app"
+    ports:
+      - "8000:8000"
