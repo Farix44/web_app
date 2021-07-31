@@ -130,3 +130,7 @@ dmypy.json
 
 # My stuff
 ss.py
+
+**/*/.terraform/
+*.tfstate
+*.tfstate.backup
