@@ -14,6 +14,7 @@ class Loans(models.Model):
     interest_rate = models.FloatField(default=ConfigData().get_data()['interest_rate'],
                                       validators=[MinValueValidator(ConfigData().get_data()['interest_rate']),
                                                    MaxValueValidator(ConfigData().get_data()['interest_rate'])])
+    repayment_amount = models.FloatField(blank=True, null=True)
 
     def __str__(self):
         return self.loan_record()

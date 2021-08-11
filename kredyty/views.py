@@ -19,8 +19,13 @@ def loan_list(request):
 def new_loan(request):
     form = LoansForm(request.POST or None, request.FILES or None)
     form.fields['interest_rate'].widget = forms.HiddenInput()
+    form.fields['repayment_amount'].widget = forms.HiddenInput()
 
     if form.is_valid():
+        post = form.save(commit=False)
+        repayment_amount = int(form['amount'].value()) * int(form['interest_rate'].value()) / 100 + int(form['amount'].value())
+        post.repayment_amount = repayment_amount
+        post.save
         form.save()
         return redirect(loan_list)
 
