@@ -5,25 +5,16 @@
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<!--  <script type="text/javascript" src="test_js.js"></script>-->
-  <title>Document</title>
+  <title>Index_page</title>
 </head>
 <body>
-  <h1>Hello1</h1>
-  <button>ClickMe</button>
+  <h1>Hello!</h1>
+  <button onclick="get_data('users')">GET users</button>
+  <button onclick="get_data('loans')">GET loans</button>
+
+  <p id="request_json">JSON here</p>
 
 
-  <script>
-    // 'http://127.0.0.1:8000/users/'
-
-    function reqListener () {
-      console.log(this.responseText);
-    }
-
-    var oReq = new XMLHttpRequest();
-    oReq.addEventListener("load", reqListener);
-    oReq.open("GET", 'http://127.0.0.1:8000/users/');
-    oReq.send();
-   </script>
+<script type="text/javascript" src="test_js.js"></script>
 </body>
 </html>
