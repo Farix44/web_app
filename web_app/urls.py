@@ -21,6 +21,7 @@ from django.contrib.auth import views as auth_views
 from rest_framework import routers
 from kredyty.views import UserViewSet, LoansViewSet
 from kredyty import urls
+from rest_framework.authtoken.views import obtain_auth_token
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)   # rejestrujemy url
@@ -32,5 +33,6 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(), name="login"),
     path('logout/', auth_views.LogoutView.as_view(), name="logout"),
     path('kredyty/', include(urls)),
+    path('api-token-auth/', obtain_auth_token),
     path('', include(router.urls)), # '' bedzie wypelnione tym co jest wyzej w router.register
 ]
