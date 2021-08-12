@@ -2,7 +2,8 @@
 <html>
 
 <head>
-  <title>colour_orange</title>
+  <meta charset="UTF-8">
+  <title>Kredyty</title>
   <meta name="description" content="website description" />
   <meta name="keywords" content="website keywords, website keywords" />
   <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
@@ -15,17 +16,17 @@
       <div id="logo">
         <div id="logo_text">
           <!-- class="logo_colour", allows you to change the colour of the text -->
-          <h1><a href="index.html">colour<span class="logo_colour">orange</span></a></h1>
-          <h2>Simple. Contemporary. Website Template.</h2>
+          <h1><a href="index.html">Kredyty<span class="logo_colour"> w 5 minut</span></a></h1>
+          <h2>Szybko. Prosto. Pieniądze na konci w 5 minut!.</h2>
         </div>
       </div>
       <div id="menubar">
         <ul id="menu">
           <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
-          <li class="selected"><a href="index.html">Home</a></li>
-          <li><a href="examples.html">Examples</a></li>
-          <li><a href="page.html">A Page</a></li>
+          <li class="selected"><a href="index.html">Główna</a></li>
+          <li><a href="page.html">Wniosek</a></li>
           <li><a href="another_page.html">Another Page</a></li>
+          <li><a href="examples.html">Examples</a></li>
           <li><a href="contact.html">Contact Us</a></li>
         </ul>
       </div>
@@ -63,15 +64,11 @@
         <p>This template is written entirely in <strong>HTML5</strong> and <strong>CSS</strong>, and can be validated using the links in the footer.</p>
         <p>You can view more free HTML5 web templates <a href="http://www.html5webtemplates.co.uk">here</a>.</p>
         <p>This template is a fully functional 5 page website, with an <a href="examples.html">examples</a> page that gives examples of all the styles available with this design.</p>
-        <h2>Browser Compatibility</h2>
-        <p>This template has been tested in the following browsers:</p>
-        <ul>
-          <li>Internet Explorer 8</li>
-          <li>Internet Explorer 7</li>
-          <li>FireFox 3.5</li>
-          <li>Google Chrome 6</li>
-          <li>Safari 4</li>
-        </ul>
+
+        <button onclick="get_data('users')">GET users</button>
+        <button onclick="get_kredyty_data('loans')">GET loans</button>
+        <p id="request_json">JSON here</p>
+
       </div>
     </div>
     <div id="content_footer"></div>
@@ -79,5 +76,6 @@
       Copyright &copy; colour_orange | <a href="http://validator.w3.org/check?uri=referer">HTML5</a> | <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> | <a href="http://www.html5webtemplates.co.uk">Simple web templates by HTML5</a>
     </div>
   </div>
+  <script type="text/javascript" src="js/requests.js"></script>
 </body>
 </html>
