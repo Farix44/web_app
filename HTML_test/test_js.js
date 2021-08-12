@@ -6,9 +6,12 @@ function reqListener () {
 
 // Send GET request.
 function send_request(req_data, _callback) {
+    var token = '7c374722bf776133c827a966f9fc9d89fbde7c6f';   // !!! TEMPORARY !!!
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", reqListener);
     oReq.open("GET", 'http://127.0.0.1:8000/'+req_data+'/');
+    oReq.setRequestHeader('Authorization', 'Token ' + token);
+    console.log(token);
     oReq.send();
 
     _callback;

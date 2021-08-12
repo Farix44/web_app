@@ -14,14 +14,17 @@ from rest_framework import viewsets
 from django.contrib.auth.models import User
 from .serializers import UserSerializer, LoansSerializer
 from rest_framework.response import Response
+from rest_framework.authentication import TokenAuthentication
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()   # co chcemy wybierac z bd
     serializer_class = UserSerializer
+    authentication_classes = (TokenAuthentication, )
 
 class LoansViewSet(viewsets.ModelViewSet):
     queryset = Loans.objects.all()
     serializer_class = LoansSerializer
+    authentication_classes = (TokenAuthentication, )
 
     def create(self, request, *args, **kwargs):
         if CheckLoanValidators().validate() == True:
