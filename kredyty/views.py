@@ -9,7 +9,19 @@ from kredyty.validators.loan_validation_hour import LoanValidationHour
 from kredyty.validators.check_loan_validators import CheckLoanValidators
 from django import forms
 
-# Create your views here.
+# REST_FRAMEWORK:
+from rest_framework import viewsets
+from django.contrib.auth.models import User
+from .serializers import UserSerializer, LoansSerializer
+
+class UserView(viewsets.ModelViewSet):
+    queryset = User.objects.all()   # co chcemy wybierac z bd
+    serializer_class = UserSerializer
+
+class LoansView(viewsets.ModelViewSet):
+    queryset = Loans.objects.all()
+    serializer_class = LoansSerializer
+
 
 def loan_list(request):
     all_loans = Loans.objects.all()

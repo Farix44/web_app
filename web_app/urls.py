@@ -17,9 +17,18 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 
+# REST_FRAMEWORK:
+from rest_framework import routers
+from kredyty.views import UserView, LoansView
+
+router = routers.DefaultRouter()
+router.register(r'users', UserView)   # rejestrujemy url
+router.register(r'loans', LoansView)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('kredyty/', include('kredyty.urls')),
     path('login/', auth_views.LoginView.as_view(), name="login"),
-    path('logout/', auth_views.LogoutView.as_view(), name="logout")
+    path('logout/', auth_views.LogoutView.as_view(), name="logout"),
+    path('', include(router.urls)), # '' bedzie wypelnione tym co jest wyzej w router.register
 ]
