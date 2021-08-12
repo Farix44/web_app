@@ -13,6 +13,7 @@ from django import forms
 from rest_framework import viewsets
 from django.contrib.auth.models import User
 from .serializers import UserSerializer, LoansSerializer
+from rest_framework.response import Response
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()   # co chcemy wybierac z bd
@@ -22,6 +23,19 @@ class LoansViewSet(viewsets.ModelViewSet):
     queryset = Loans.objects.all()
     serializer_class = LoansSerializer
 
+    def create(self, request, *args, **kwargs):
+        film = Loans.objects.create(first_name=request.data["first_name"],
+                                    second_name=request.data["second_name"],
+                                    amount=request.data["amount"],
+                                    period=request.data["period"],
+                                    repayment_amount=int(request.data["amount"]) * float(ConfigData().get_data()['interest_rate']) / 100 + int(request.data["amount"]) )
+        serializer = LoansSerializer(film, many=False)
+        return Response(serializer.data)
+
+
+
+
+# PONIEZEJ FUNKCJE DO PRZEPISANIA
 
 def loan_list(request):
     all_loans = Loans.objects.all()
