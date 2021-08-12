@@ -29,6 +29,7 @@ class LoansViewSet(viewsets.ModelViewSet):
     serializer_class = LoansSerializer
     authentication_classes = (TokenAuthentication, )
     permission_classes = (IsAuthenticated, )
+    # test
 
     def create(self, request, *args, **kwargs):
         if CheckLoanValidators().validate() == True:
