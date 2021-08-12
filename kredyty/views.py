@@ -24,13 +24,18 @@ class LoansViewSet(viewsets.ModelViewSet):
     serializer_class = LoansSerializer
 
     def create(self, request, *args, **kwargs):
-        film = Loans.objects.create(first_name=request.data["first_name"],
-                                    second_name=request.data["second_name"],
-                                    amount=request.data["amount"],
-                                    period=request.data["period"],
-                                    repayment_amount=int(request.data["amount"]) * float(ConfigData().get_data()['interest_rate']) / 100 + int(request.data["amount"]) )
-        serializer = LoansSerializer(film, many=False)
-        return Response(serializer.data)
+        if CheckLoanValidators().validate() == True:
+            film = Loans.objects.create(first_name=request.data["first_name"],
+                                        second_name=request.data["second_name"],
+                                        amount=request.data["amount"],
+                                        period=request.data["period"],
+                                        repayment_amount=int(request.data["amount"]) *
+                                                         float(ConfigData().get_data()['interest_rate']) /
+                                                         100 + int(request.data["amount"]) )
+            serializer = LoansSerializer(film, many=False)
+            return Response(serializer.data)
+        else:
+            pass
 
 
 
