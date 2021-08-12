@@ -17,7 +17,7 @@ function send_request(req_data, _callback) {
 // Display data from project.
 function get_data(req_data) {
     send_request(req_data);
-    console.log(received_json)
+    console.log(received_json);
     document.getElementById("request_json").innerHTML = received_json;
 }
 
@@ -25,6 +25,6 @@ function get_data(req_data) {
 function get_kredyty_data(req_data) {
     req_data = 'kredyty/' + req_data;
     send_request(req_data);
-    console.log(received_json)
+    console.log(received_json);
     document.getElementById("request_json").innerHTML = received_json;
 }
