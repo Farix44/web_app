@@ -14,11 +14,11 @@ from rest_framework import viewsets
 from django.contrib.auth.models import User
 from .serializers import UserSerializer, LoansSerializer
 
-class UserView(viewsets.ModelViewSet):
+class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()   # co chcemy wybierac z bd
     serializer_class = UserSerializer
 
-class LoansView(viewsets.ModelViewSet):
+class LoansViewSet(viewsets.ModelViewSet):
     queryset = Loans.objects.all()
     serializer_class = LoansSerializer
 

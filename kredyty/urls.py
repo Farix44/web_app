@@ -4,10 +4,10 @@ from kredyty.views import loan_list, new_loan, edit_loan, delete_loan
 # REST_FRAMEWORK:
 from rest_framework import routers
 from django.conf.urls import include
-from kredyty.views import UserView, LoansView
+from kredyty.views import UserViewSet, LoansViewSet
 
 router = routers.DefaultRouter()
-router.register(r'loans', LoansView, basename='loans')
+router.register(r'loans', LoansViewSet, basename='loans')
 
 urlpatterns = [
     path('list/', loan_list, name="loan_list"),
