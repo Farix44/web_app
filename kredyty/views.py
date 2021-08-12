@@ -15,16 +15,20 @@ from django.contrib.auth.models import User
 from .serializers import UserSerializer, LoansSerializer
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import (
+    IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly, IsAdminUser, DjangoModelPermissions)
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()   # co chcemy wybierac z bd
     serializer_class = UserSerializer
     authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsAuthenticatedOrReadOnly, )
 
 class LoansViewSet(viewsets.ModelViewSet):
     queryset = Loans.objects.all()
     serializer_class = LoansSerializer
     authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsAuthenticated, )
 
     def create(self, request, *args, **kwargs):
         if CheckLoanValidators().validate() == True:
