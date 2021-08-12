@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'bootstrapform',
     'rest_framework',
     'corsheaders',
+    'rest_framework.authtoken',
     'kredyty'
 ]
 
