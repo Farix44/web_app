@@ -5,7 +5,12 @@ from .models import Loans
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email']
+        fields = ['id', 'username', 'email', 'password']
+        extra_kwargs = {'password': {'required': True, 'write_only': True}}
+
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)   # creater_user to wbudowana metoda, co pozwoli tworzyc uzytkownika z hashowanym haslem
+        return user
 
 class LoansSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
