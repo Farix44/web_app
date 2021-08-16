@@ -1,4 +1,5 @@
 var received_json;
+var received_token;
 
 function reqListener () {
       received_json = this.responseText;
@@ -7,6 +8,7 @@ function reqListener () {
 // Send GET request.
 function send_request(req_data, _callback) {
     var token = '7c374722bf776133c827a966f9fc9d89fbde7c6f';   // !!! TEMPORARY !!!
+    // var token = received_token;
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", reqListener);
     oReq.open("GET", 'http://127.0.0.1:8000/'+req_data+'/');
@@ -31,29 +33,43 @@ function get_kredyty_data(req_data) {
     document.getElementById("request_json").innerHTML = received_json;
 }
 
-
-var temp_json = {
+// post test
+function post_data() {
+    var send_json = {
         "first_name": "Janek",
-        "second_name": "janecki",
+        "second_name": "Janecki",
         "amount": 4500,
         "period": 10
     };
-// post test
-function post_data() {
-//    var temp_json = {
-//        "first_name": "Janek",
-//        "second_name": "janecki",
-//        "amount": 4500,
-//        "period": 10
-//    };
     var token = '7c374722bf776133c827a966f9fc9d89fbde7c6f';   // !!! TEMPORARY !!!
+    //var token = received_token;
     var oReq = new XMLHttpRequest();
-    //oReq.addEventListener("load", reqListener);
     oReq.open("POST", 'http://127.0.0.1:8000/kredyty/loans/');
     oReq.setRequestHeader('Authorization', 'Token ' + token);
     oReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    //oReq.onload = requestComplete;
-    console.log(temp_json);
-    oReq.send(JSON.stringify(temp_json));
-    //oReq.send(temp_json);
+    oReq.send(JSON.stringify(send_json));
+}
+
+// logowanie
+function login(callback) {
+    //var username = 'admin';
+    //var password = 'admin';
+    var send_json = {
+        "username": "admin",
+        "password": "admin"
+    };
+
+    var oReq = new XMLHttpRequest();
+    oReq.onreadystatechange = function() {
+        if (oReq.readyState == XMLHttpRequest.DONE) {
+            //alert(oReq.responseText);
+            //console.log(oReq.responseText);
+            received_token = oReq.responseText;
+        }
+    }
+    oReq.open("POST", 'http://127.0.0.1:8000/api-token-auth/');
+    oReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    oReq.send(JSON.stringify(send_json));
+
+    console.log(received_token);
 }

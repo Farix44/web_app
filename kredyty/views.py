@@ -45,8 +45,6 @@ class LoansViewSet(viewsets.ModelViewSet):
             pass
 
 
-
-
 # PONIEZEJ FUNKCJE DO PRZEPISANIA
 
 def loan_list(request):
