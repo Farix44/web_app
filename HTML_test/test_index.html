@@ -9,6 +9,7 @@
 </head>
 <body>
   <h1>Hello!</h1>
+  <button onclick="test()">test</button><br>
   <button onclick="get_data('users')">GET users</button>
   <button onclick="get_kredyty_data('loans')">GET loans</button>
   <button onclick="post_data()">POST loan test</button>
@@ -20,11 +21,11 @@
 
   <form action="#" method="post">
     <div class="form_settings">
-      <p><span>Imie: </span><br><input type="text" name="name" value="" id="form_first_name"/></p>
-      <p><span>Nazwisko: </span><br><input type="text" name="name" value="" id="form_second_name"/></p>
-      <p><span>Kwota: </span><br><input type="number" name="name" value="" id="form_amount"/></p>
-      <p><span>Okres miesięcy: </span><br><input type="number" name="name" value="" id="form_period"/></p>
-      <p><span>Do spłaty: </span><br><input type="number" name="name" value="" id="form_repayment_amount"/></p>
+      <p><span>Imie: </span><br><input type="text" name="first_name" value="" id="form_first_name"/></p>
+      <p><span>Nazwisko: </span><br><input type="text" name="second_name" value="" id="form_second_name"/></p>
+      <p><span>Kwota: </span><br><input type="number" name="amount" value="" id="form_amount"/></p>
+      <p><span>Okres miesięcy: </span><br><input type="number" name="period" value="" id="form_period"/></p>
+      <p><span>Do spłaty: </span><br><input type="number" name="repayment_amount" value="" id="form_repayment_amount"/></p>
       <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="name" value="button" /></p>
     </div>
   </form>

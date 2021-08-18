@@ -49,7 +49,8 @@ function get_kredyty_data(req_data) {
     for (let i=0; i<rec_json_obj.length; i++) {
         loan_record += rec_json_obj[loan_id]['first_name']+' '+rec_json_obj[loan_id]['second_name']+'\n'+
         'pożyczył/a '+rec_json_obj[loan_id]['amount']+'zł, na okres: '+rec_json_obj[loan_id]['period']+' miesięcy.'+'\n'+
-        'Do spłaty: '+rec_json_obj[loan_id]['repayment_amount']+'zł.'+'\n\n';
+        'Do spłaty: '+rec_json_obj[loan_id]['repayment_amount']+'zł.'+'\n'+
+        '( id wniosku = '+rec_json_obj[loan_id]['id']+' )\n\n';
         loan_id++;
     }
     loan_record = loan_record.replace(/(\r\n|\n|\r)/gm, "<br>");
@@ -137,3 +138,17 @@ window.addEventListener( "load", function () {
     sendData();
   } );
 } );
+
+// test Button
+function test() {
+    console.log('test()');
+    let btn = document.createElement("button");
+    btn.innerHTML = "created_test_button";
+    //btn.type = "submit";
+    //btn.name = "formBtn";
+    btn.onclick = function () {
+        console.log('just created button says Hi!');
+        login();
+    }
+    document.body.appendChild(btn);
+}
