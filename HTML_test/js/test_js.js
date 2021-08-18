@@ -1,5 +1,6 @@
 var received_json;
 var received_token;
+var admin_token = '7c374722bf776133c827a966f9fc9d89fbde7c6f';
 
 function reqListener () {
       received_json = this.responseText;
@@ -7,12 +8,12 @@ function reqListener () {
 
 // Send GET request.
 function send_request(req_data, _callback) {
-    var token = '7c374722bf776133c827a966f9fc9d89fbde7c6f';   // !!! TEMPORARY !!!
+    // var token = '7c374722bf776133c827a966f9fc9d89fbde7c6f';   // !!! TEMPORARY !!!
     // var token = received_token;
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", reqListener);
     oReq.open("GET", 'http://127.0.0.1:8000/'+req_data+'/');
-    oReq.setRequestHeader('Authorization', 'Token ' + token);
+    oReq.setRequestHeader('Authorization', 'Token ' + admin_token);
     oReq.send();
 
     _callback;
@@ -63,11 +64,11 @@ function post_data() {
         "amount": 4500,
         "period": 10
     };
-    var token = '7c374722bf776133c827a966f9fc9d89fbde7c6f';   // !!! TEMPORARY !!!
-    //var token = received_token;
+    // var token = '7c374722bf776133c827a966f9fc9d89fbde7c6f';   // !!! TEMPORARY !!!
+    // var token = received_token;
     var oReq = new XMLHttpRequest();
     oReq.open("POST", 'http://127.0.0.1:8000/kredyty/loans/');
-    oReq.setRequestHeader('Authorization', 'Token ' + token);
+    oReq.setRequestHeader('Authorization', 'Token ' + admin_token);
     oReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     oReq.send(JSON.stringify(send_json));
 }
@@ -118,7 +119,8 @@ window.addEventListener( "load", function () {
 
     // Set up our request
     XHR.open( "POST", "http://127.0.0.1:8000/kredyty/loans/" );
-    XHR.setRequestHeader('Authorization', 'Token ' + '7c374722bf776133c827a966f9fc9d89fbde7c6f');
+    // XHR.setRequestHeader('Authorization', 'Token ' + '7c374722bf776133c827a966f9fc9d89fbde7c6f');
+    XHR.setRequestHeader('Authorization', 'Token ' + admin_token);
     //XHR.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     console.log(FD);
     // The data sent is what the user provided in the form
