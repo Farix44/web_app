@@ -152,3 +152,21 @@ function test() {
     }
     document.body.appendChild(btn);
 }
+
+function get_kredyty_data_for_edit(req_data) {
+    req_data = 'kredyty/' + req_data;
+    send_request(req_data);
+    console.log(received_json);
+    //document.getElementById("request_json").innerHTML = received_json;
+}
+
+// EDYTUJ WNIOSEK select field
+var select = document.getElementById("select_loan");
+var options = ["1", "2", "3", "4", "5"];
+for(var i = 0; i < options.length; i++) {
+    var opt = options[i];
+    var el = document.createElement("option");
+    el.textContent = opt;
+    el.value = opt;
+    select.appendChild(el);
+}

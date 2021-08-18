@@ -8,7 +8,15 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="#" method="post" id="add_new_loan_form">
+    <button onclick="setup_select()">GET loans</button>
+
+    <p><span>Wybierz wniosek</span>
+        <select id="select_loan" name="name" onchange="fillForm();">
+            <option></option>
+        </select>
+    </p>
+
+    <form action="#" method="put" id="add_new_loan_form">
         <div class="form_settings">
             <p><span>Imie: </span><br><input type="text" name="first_name" value="" id="form_first_name"/></p>
             <p><span>Nazwisko: </span><br><input type="text" name="second_name" value="" id="form_second_name"/></p>
@@ -18,6 +26,6 @@
             <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="name" value="button" /></p>
         </div>
     </form>
-<script type="text/javascript" src="js/test_js.js"></script>
+<script type="text/javascript" src="js/edit_loan_js.js"></script>
 </body>
 </html>
