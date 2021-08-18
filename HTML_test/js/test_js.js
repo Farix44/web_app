@@ -95,3 +95,43 @@ function login(callback) {
 
     console.log(received_token);
 }
+
+
+// ADD NEW LOAN:
+window.addEventListener( "load", function () {
+  function sendData() {
+    const XHR = new XMLHttpRequest();
+
+    // Bind the FormData object and the form element
+    const FD = new FormData( form );
+
+    // Define what happens on successful data submission
+//    XHR.addEventListener( "load", function(event) {
+//      alert( event.target.responseText );
+//    } );
+
+    // Define what happens in case of error
+    XHR.addEventListener( "error", function( event ) {
+      //alert( 'Oops! Something went wrong.' );
+      console.log('Error');
+    } );
+
+    // Set up our request
+    XHR.open( "POST", "http://127.0.0.1:8000/kredyty/loans/" );
+    XHR.setRequestHeader('Authorization', 'Token ' + '7c374722bf776133c827a966f9fc9d89fbde7c6f');
+    //XHR.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    console.log(FD);
+    // The data sent is what the user provided in the form
+    XHR.send( FD );
+  }
+
+  // Access the form element...
+  const form = document.getElementById( "add_new_loan_form" );
+
+  // ...and take over its submit event.
+  form.addEventListener( "submit", function ( event ) {
+    event.preventDefault();
+
+    sendData();
+  } );
+} );
