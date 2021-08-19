@@ -2,7 +2,7 @@ var received_json;
 var rec_json_obj;
 var admin_token = '7c374722bf776133c827a966f9fc9d89fbde7c6f';
 
-// wysyłanie PUT zedytowanych danych z formularza
+// wysyłanie nowego wniosku (POST)
 function submitNewLoan() {
     var data = getFormData();
     var json = JSON.stringify(data);
