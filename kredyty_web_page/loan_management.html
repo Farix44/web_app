@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Kredyty - głowna</title>
+  <title>Kredyty - zarządzaj kredytami</title>
   <meta name="description" content="website description" />
   <meta name="keywords" content="website keywords, website keywords" />
   <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
@@ -23,14 +23,15 @@
       <div id="menubar">
         <ul id="menu">
           <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
-          <li class="selected"><a href="index.html">Główna</a></li>
+          <li><a href="index.html">Główna</a></li>
           <li><a href="new_loan.html">Nowy Wniosek</a></li>
           <li><a href="loan_list.html">Lista Kredytów</a></li>
-          <li><a href="loan_management.html">Zarządzaj Kredytami</a></li>
+          <li class="selected"><a href="loan_management.html">Zarządzaj Kredytami</a></li>
           <li><a href="contact.html">Kontakt</a></li>
         </ul>
       </div>
     </div>
+    <div id="content_header"></div>
     <div id="site_content">
       <div class="sidebar">
         <!-- insert your sidebar items here -->
@@ -59,18 +60,28 @@
       </div>
       <div id="content">
         <!-- insert the page content here -->
-        <h1>Welcome to the colour_orange template</h1>
-        <p>This standards compliant, simple, fixed width website template is released as an 'open source' design (under a <a href="http://creativecommons.org/licenses/by/3.0">Creative Commons Attribution 3.0 Licence</a>), which means that you are free to download and use it for anything you want (including modifying and amending it). All I ask is that you leave the 'design from HTML5webtemplates.co.uk' link in the footer of the template, but other than that...</p>
-        <p>This template is written entirely in <strong>HTML5</strong> and <strong>CSS</strong>, and can be validated using the links in the footer.</p>
-        <p>You can view more free HTML5 web templates <a href="http://www.html5webtemplates.co.uk">here</a>.</p>
-        <p>This template is a fully functional 5 page website, with an <a href="examples.html">examples</a> page that gives examples of all the styles available with this design.</p>
+        <h1>Edytuj/Usuń wniosek</h1>
 
-        <button onclick="get_data('users')">GET users</button>
-        <button onclick="get_kredyty_data('loans')">GET loans</button>
-<!--        <p id="request_json">JSON here</p>-->
-        <h1>Lista kredytow:</h1>
-        <p id="loan_list">JSON here</p>
+        <p><span>Wybierz wniosek</span>
+            <select id="select_loan" name="name" onchange="fillForm();">
+                <option></option>
+            </select>
+        </p>
 
+    <!--    <form action="#" method="put" id="edit_loan_form">-->
+        <form action="#" id="edit_loan_form">
+            <div class="form_settings">
+                <p><span>Imie: </span><br><input type="text" name="first_name" value="" id="form_first_name"/></p>
+                <p><span>Nazwisko: </span><br><input type="text" name="second_name" value="" id="form_second_name"/></p>
+                <p><span>Kwota: </span><br><input type="number" name="amount" value="" id="form_amount"/></p>
+                <p><span>Okres miesięcy: </span><br><input type="number" name="period" value="" id="form_period"/></p>
+                <p><span>Kwota do spłaty: </span><br><input type="number" step="0.01" name="repayment_amount" value="" id="form_repayment_amount"/></p>
+                <p style="padding-top: 15px">
+                    <span>&nbsp;</span><input class="submit" type="submit" name="editButton" value="Edytuj" onclick="submitEdit()" />
+                    <span>&nbsp;</span><input class="submit" type="submit" name="deleteButton" value="Usuń" onclick="submitDelete()" />
+                </p>
+            </div>
+        </form>
       </div>
     </div>
     <div id="content_footer"></div>
@@ -78,6 +89,6 @@
       Copyright &copy; colour_orange | <a href="http://validator.w3.org/check?uri=referer">HTML5</a> | <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> | <a href="http://www.html5webtemplates.co.uk">Simple web templates by HTML5</a>
     </div>
   </div>
-  <script type="text/javascript" src="js/requests.js"></script>
+  <script type="text/javascript" src="js/edit_loan.js"></script>
 </body>
 </html>
