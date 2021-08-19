@@ -56,5 +56,54 @@ function fillForm() {
     }
 }
 
+// wysyłanie PUT zedytowanych danych z formularza
+function submitEdit() {
+    var data = getFormData();
+    var json = JSON.stringify(data);
+    var loan_id = document.getElementById("select_loan").value;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("PUT", 'http://127.0.0.1:8000/kredyty/loans/'+loan_id+'/', true);
+    xhr.setRequestHeader('Authorization', 'Token ' + admin_token);
+    xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+    xhr.onload = function () {
+        if (xhr.readyState == 4 && xhr.status == "200") {
+            console.table(users);
+        } else {
+            console.error(users);
+        }
+    }
+    xhr.send(json);
+}
+
+// usuniecie wybranego kredytu (DELETE)
+function submitDelete() {
+    var loan_id = document.getElementById("select_loan").value;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("DELETE", 'http://127.0.0.1:8000/kredyty/loans/'+loan_id+'/', true);
+    xhr.setRequestHeader('Authorization', 'Token ' + admin_token);
+    xhr.onload = function () {
+        if (xhr.readyState == 4 && xhr.status == "200") {
+            console.table(users);
+        } else {
+            console.error(users);
+        }
+    }
+    xhr.send(null);
+}
+
+
+// pobieranie danych z formularza do obiektu
+function getFormData() {
+    var elements = document.getElementById("edit_loan_form").elements;
+    var obj ={};
+    for(var i = 0 ; i < elements.length ; i++){
+        var item = elements.item(i);
+        obj[item.name] = item.value;
+    }
+    // console.log(JSON.stringify(obj));
+    return obj;
+}
 
 

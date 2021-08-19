@@ -8,7 +8,8 @@
     <title>Document</title>
 </head>
 <body>
-    <button onclick="setup_select()">GET loans</button>
+<!--    <button onclick="myFunction()">GET loans</button>-->
+    <h1>Edytuj/Usuń wniosek</h1>
 
     <p><span>Wybierz wniosek</span>
         <select id="select_loan" name="name" onchange="fillForm();">
@@ -16,14 +17,18 @@
         </select>
     </p>
 
-    <form action="#" method="put" id="add_new_loan_form">
+<!--    <form action="#" method="put" id="edit_loan_form">-->
+    <form action="#" id="edit_loan_form">
         <div class="form_settings">
             <p><span>Imie: </span><br><input type="text" name="first_name" value="" id="form_first_name"/></p>
             <p><span>Nazwisko: </span><br><input type="text" name="second_name" value="" id="form_second_name"/></p>
             <p><span>Kwota: </span><br><input type="number" name="amount" value="" id="form_amount"/></p>
             <p><span>Okres miesięcy: </span><br><input type="number" name="period" value="" id="form_period"/></p>
-            <p><span>Kwota do spłaty: </span><br><input type="number" name="repayment_amount" value="" id="form_repayment_amount"/></p>
-            <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="name" value="button" /></p>
+            <p><span>Kwota do spłaty: </span><br><input type="number" step="0.01" name="repayment_amount" value="" id="form_repayment_amount"/></p>
+            <p style="padding-top: 15px">
+                <span>&nbsp;</span><input class="submit" type="submit" name="editButton" value="Edytuj" onclick="submitEdit()" />
+                <span>&nbsp;</span><input class="submit" type="submit" name="deleteButton" value="Usuń" onclick="submitDelete()" />
+            </p>
         </div>
     </form>
 <script type="text/javascript" src="js/edit_loan_js.js"></script>
