@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from .load_json import ConfigData
 from kredyty.validators.loan_validation_hour import LoanValidationHour
 from kredyty.validators.check_loan_validators import CheckLoanValidators
+from kredyty.calculators.repayment_amount_calculator import RepaymentAmountCalculator
 from django import forms
 
 # REST_FRAMEWORK:
@@ -36,9 +37,11 @@ class LoansViewSet(viewsets.ModelViewSet):
                                         second_name=request.data["second_name"],
                                         amount=request.data["amount"],
                                         period=request.data["period"],
-                                        repayment_amount=int(request.data["amount"]) *
-                                                         float(ConfigData().get_data()['interest_rate']) /
-                                                         100 + int(request.data["amount"]) )
+                                        # repayment_amount=int(request.data["amount"]) *
+                                        #                  float(ConfigData().get_data()['interest_rate']) /
+                                        #                  100 + int(request.data["amount"]) )
+                                        repayment_amount=RepaymentAmountCalculator(int(request.data["amount"]),
+                                                                                   float(ConfigData().get_data()['interest_rate'])).calculate() )
             serializer = LoansSerializer(film, many=False)
             return Response(serializer.data)
         else:
