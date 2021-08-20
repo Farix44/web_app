@@ -1,6 +1,6 @@
 var received_json;
 var rec_json_obj;
-var admin_token = '7c374722bf776133c827a966f9fc9d89fbde7c6f';
+var admin_token = '8e1255930fd977816260fde8df8f27ca12249806';
 
 // przy wczytywaniu strony pobiera liste wnioskow
 window.addEventListener( "load", function () {
