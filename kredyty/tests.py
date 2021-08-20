@@ -3,6 +3,7 @@ import unittest
 from .load_json import ConfigData
 from kredyty.validators.loan_validation_hour import LoanValidationHour
 from kredyty.validators.check_loan_validators import CheckLoanValidators
+from kredyty.calculators.repayment_amount_calculator import RepaymentAmountCalculator
 
 # Create your tests here.
 
@@ -35,6 +36,19 @@ class TestLoanValidationHour(TestCase):
         self.assertNotEqual(LoanValidationHour({"hour": 5}).validate(), True)
         self.assertNotEqual(LoanValidationHour({"hour": 3}).validate(), True)
 
+class TestRepaymentAmountCalculator(TestCase):
+
+    def test_calculate(self):
+        self.assertEqual(1080, RepaymentAmountCalculator(1000, 8).calculate())
+        self.assertEqual(4318.92, RepaymentAmountCalculator(3999, 8).calculate())
+        self.assertEqual(2975, RepaymentAmountCalculator(2500, 19).calculate())
+        self.assertEqual(12298.77, RepaymentAmountCalculator(9999, 23).calculate())
+
+        self.assertNotEqual(1180, RepaymentAmountCalculator(1000, 8).calculate())
+        self.assertNotEqual(4318, RepaymentAmountCalculator(3999, 8).calculate())
+        self.assertNotEqual(600, RepaymentAmountCalculator(300, 99).calculate())
+        self.assertNotEqual(6942, RepaymentAmountCalculator(6037, 15).calculate())
+        self.assertNotEqual(6943, RepaymentAmountCalculator(6037, 15).calculate())
 
 if __name__ == '__main__':
     unittest.main()
