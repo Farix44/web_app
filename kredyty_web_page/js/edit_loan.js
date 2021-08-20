@@ -1,29 +1,35 @@
 var received_json;
 var rec_json_obj;
-var admin_token = '8e1255930fd977816260fde8df8f27ca12249806';
+//var admin_token = '8e1255930fd977816260fde8df8f27ca12249806';
+var received_token;
+
+// przy wczytywaniu strony pobiera token i nastepnie z jego pomocaliste wnioskow
+window.addEventListener( "load", function () {
+    getToken();
+} );
 
 // przy wczytywaniu strony pobiera liste wnioskow
-window.addEventListener( "load", function () {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", 'http://127.0.0.1:8000/kredyty/loans/', true);
-    xhr.setRequestHeader('Authorization', 'Token ' + admin_token);
-    xhr.onload = function (e) {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                console.log(xhr.responseText);
-                received_json = this.responseText;
-                rec_json_obj = JSON.parse(received_json);
-                setup_select();
-            } else {
-                console.error(xhr.statusText);
-            }
-        }
-    };
-    xhr.onerror = function (e) {
-        console.error(xhr.statusText);
-    };
-    xhr.send(null);
-} );
+//window.addEventListener( "load", function () {
+//    var xhr = new XMLHttpRequest();
+//    xhr.open("GET", 'http://127.0.0.1:8000/kredyty/loans/', true);
+//    xhr.setRequestHeader('Authorization', 'Token ' + admin_token);
+//    xhr.onload = function (e) {
+//        if (xhr.readyState === 4) {
+//            if (xhr.status === 200) {
+//                console.log(xhr.responseText);
+//                received_json = this.responseText;
+//                rec_json_obj = JSON.parse(received_json);
+//                setup_select();
+//            } else {
+//                console.error(xhr.statusText);
+//            }
+//        }
+//    };
+//    xhr.onerror = function (e) {
+//        console.error(xhr.statusText);
+//    };
+//    xhr.send(null);
+//} );
 
 // wstawia id wnioskow do pola select
 function setup_select() {
@@ -64,13 +70,13 @@ function submitEdit() {
 
     var xhr = new XMLHttpRequest();
     xhr.open("PUT", 'http://127.0.0.1:8000/kredyty/loans/'+loan_id+'/', true);
-    xhr.setRequestHeader('Authorization', 'Token ' + admin_token);
+    xhr.setRequestHeader('Authorization', 'Token ' + received_token);
     xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
     xhr.onload = function () {
         if (xhr.readyState == 4 && xhr.status == "200") {
-            console.table(users);
+            //console.table(users);
         } else {
-            console.error(users);
+            //console.error(users);
         }
     }
     xhr.send(json);
@@ -82,7 +88,7 @@ function submitDelete() {
 
     var xhr = new XMLHttpRequest();
     xhr.open("DELETE", 'http://127.0.0.1:8000/kredyty/loans/'+loan_id+'/', true);
-    xhr.setRequestHeader('Authorization', 'Token ' + admin_token);
+    xhr.setRequestHeader('Authorization', 'Token ' + received_token);
     xhr.onload = function () {
         if (xhr.readyState == 4 && xhr.status == "200") {
             console.table(users);
@@ -106,4 +112,51 @@ function getFormData() {
     return obj;
 }
 
+// pobieranie tokenu admina
+function getToken(callback) {
+    var send_json = {
+        "username": "admin",
+        "password": "admin"
+    };
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", 'http://127.0.0.1:8000/api-token-auth/', true);
+    xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+    xhr.onload = function (e) {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                console.log(xhr.responseText);
+                received_token = JSON.parse(xhr.responseText)['token']
+                getData();
+            } else {
+                console.error(xhr.statusText);
+            }
+        }
+    };
+    xhr.onerror = function (e) {
+        console.error(xhr.statusText);
+    };
+    xhr.send(JSON.stringify(send_json));
+}
 
+// pobiera liste wnioskow
+function getData(callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", 'http://127.0.0.1:8000/kredyty/loans/', true);
+    xhr.setRequestHeader('Authorization', 'Token ' + received_token);
+    xhr.onload = function (e) {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                console.log(xhr.responseText);
+                received_json = this.responseText;
+                rec_json_obj = JSON.parse(received_json);
+                setup_select();
+            } else {
+                console.error(xhr.statusText);
+            }
+        }
+    };
+    xhr.onerror = function (e) {
+        console.error(xhr.statusText);
+    };
+    xhr.send(null);
+}
