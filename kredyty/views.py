@@ -33,7 +33,7 @@ class LoansViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         if CheckLoanValidators().validate() == True:
-            film = Loans.objects.create(first_name=request.data["first_name"],
+            loan = Loans.objects.create(first_name=request.data["first_name"],
                                         second_name=request.data["second_name"],
                                         amount=request.data["amount"],
                                         period=request.data["period"],
@@ -42,7 +42,7 @@ class LoansViewSet(viewsets.ModelViewSet):
                                         #                  100 + int(request.data["amount"]) )
                                         repayment_amount=RepaymentAmountCalculator(int(request.data["amount"]),
                                                                                    float(ConfigData().get_data()['interest_rate'])).calculate() )
-            serializer = LoansSerializer(film, many=False)
+            serializer = LoansSerializer(loan, many=False)
             return Response(serializer.data)
         else:
             pass
