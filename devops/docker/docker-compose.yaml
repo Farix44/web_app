@@ -13,3 +13,13 @@ services:
     image: "farix44/django_web_app"
     ports:
       - "8000:8000"
+    environment:
+      SECRET_KEY: django-insecure-@z_9m*&7cmft(87^j1(b6%0uddzvc$0s!@1mgop*1rrtfzx(nz
+      DATABASE_NAME: web_app_postgresql_db
+      DATABASE_USER: marcin
+      DATABASE_PASS: Marcin1!
+      CORS_ALLOWED_ORIGINS: http://localhost:3030
+      CORS_ALLOWED_ORIGIN_REGEXES: http://localhost:3030
+      ALLOWED_HOSTS: *
+    depends_on:
+      - postgres
