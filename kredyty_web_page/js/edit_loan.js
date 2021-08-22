@@ -119,7 +119,7 @@ function getToken(callback) {
         "password": "admin"
     };
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", 'http://127.0.0.1:8000/api-token-auth/', true);
+    xhr.open("POST", '${BACKEND_HOST}/api-token-auth/', true);
     xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
     xhr.onload = function (e) {
         if (xhr.readyState === 4) {
