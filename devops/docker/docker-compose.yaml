@@ -1,5 +1,14 @@
 version: "2"
 services:
+  postgres:
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    build:
+      context: postgres
+      dockerfile: Dockerfile
+    ports:
+      - "5432:5432"
   django-sample:
     image: "farix44/django_web_app"
     ports:
