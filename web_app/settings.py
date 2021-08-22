@@ -30,7 +30,7 @@ SECRET_KEY = env('SECRET_KEY'),
 DEBUG = False
 
 # ALLOWED_HOSTS = ["127.0.0.1"]
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [env('ALLOWED_HOSTS')]
 
 
 # Application definition
