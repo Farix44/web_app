@@ -1,7 +1,7 @@
 var received_json;
 var rec_json_obj;
-// var admin_token = '8e1255930fd977816260fde8df8f27ca12249806';
 var received_token;
+var url = ${BACKEND_HOST};
 
 // przy wczytywaniu strony pobiera token
 window.addEventListener( "load", function () {
@@ -14,7 +14,7 @@ function submitNewLoan() {
     var json = JSON.stringify(data);
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", 'http://127.0.0.1:8000/kredyty/loans/', true);
+    xhr.open("POST", url+'kredyty/loans/', true);
     xhr.setRequestHeader('Authorization', 'Token ' + received_token);
     xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
     xhr.onload = function () {
@@ -46,7 +46,7 @@ function getToken(callback) {
         "password": "admin"
     };
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", 'http://127.0.0.1:8000/api-token-auth/', true);
+    xhr.open("POST", url+'api-token-auth/', true);
     xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
     xhr.onload = function (e) {
         if (xhr.readyState === 4) {

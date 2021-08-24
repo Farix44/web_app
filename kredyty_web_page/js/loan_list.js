@@ -1,6 +1,7 @@
 var received_json;
 var rec_json_obj;
 var received_token;
+var url = ${BACKEND_HOST};
 
 // przy wczytywaniu strony pobiera token i nastepnie z jego pomocaliste wnioskow
 window.addEventListener( "load", function () {
@@ -32,7 +33,7 @@ function getToken(callback) {
         "password": "admin"
     };
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", 'http://127.0.0.1:8000/api-token-auth/', true);
+    xhr.open("POST", url+'api-token-auth/', true);
     xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
     xhr.onload = function (e) {
         if (xhr.readyState === 4) {
@@ -54,7 +55,7 @@ function getToken(callback) {
 // pobiera liste wnioskow
 function getData(callback) {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", 'http://127.0.0.1:8000/kredyty/loans/', true);
+    xhr.open("GET", url+'kredyty/loans/', true);
     xhr.setRequestHeader('Authorization', 'Token ' + received_token);
     xhr.onload = function (e) {
         if (xhr.readyState === 4) {
@@ -73,27 +74,3 @@ function getData(callback) {
     };
     xhr.send(null);
 }
-
-
-// przy wczytywaniu strony pobiera liste wnioskow
-//window.addEventListener( "load", function () {
-//    var xhr = new XMLHttpRequest();
-//    xhr.open("GET", 'http://127.0.0.1:8000/kredyty/loans/', true);
-//    xhr.setRequestHeader('Authorization', 'Token ' + admin_token);
-//    xhr.onload = function (e) {
-//        if (xhr.readyState === 4) {
-//            if (xhr.status === 200) {
-//                console.log(xhr.responseText);
-//                received_json = this.responseText;
-//                rec_json_obj = JSON.parse(received_json);
-//                displayData();
-//            } else {
-//                console.error(xhr.statusText);
-//            }
-//        }
-//    };
-//    xhr.onerror = function (e) {
-//        console.error(xhr.statusText);
-//    };
-//    xhr.send(null);
-//} );
