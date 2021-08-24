@@ -55,3 +55,8 @@ http://127.0.0.1:8000/kredyty/lista/
 Pierwsza strona przechodzi do logowania do panelu admina gdzie można przegladac/dodawać/edytowac/usowac wnioski kredytowe. 
 
 Druga strona to zwykly html wyswietlajacy liste wszystkich wnioskow.
+
+
+terraform
+export DO_PAT=<TOKEN>
+terraform plan -var "digitalocean_token=${DO_PAT}" -var-file django_sample.tfvar

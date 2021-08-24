@@ -1,0 +1,3 @@
+CREATE DATABASE web_app_postgresql_db;
+CREATE USER marcin WITH PASSWORD 'Marcin1!';
+ALTER USER marcin WITH SUPERUSER;
