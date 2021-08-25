@@ -33,6 +33,6 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(), name="login"),
     path('logout/', auth_views.LogoutView.as_view(), name="logout"),
     path('kredyty/', include(urls)),
-    path('api-token-auth/', obtain_auth_token),
+    path('/api/api-token-auth/', obtain_auth_token),
     path('', include(router.urls)), # '' bedzie wypelnione tym co jest wyzej w router.register
 ]
