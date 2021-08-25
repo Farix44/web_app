@@ -9,7 +9,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5432:5432"
-  django-sample:
+  django_web_app:
     image: "farix44/django_web_app"
     ports:
       - "8000:8000"
@@ -18,8 +18,15 @@ services:
       DATABASE_NAME: "web_app_postgresql_db"
       DATABASE_USER: "marcin"
       DATABASE_PASS: "Marcin1!"
+      DATABASE_HOST: "postgres"
       CORS_ALLOWED_ORIGINS: "http://localhost:3030"
       CORS_ALLOWED_ORIGIN_REGEXES: "http://localhost:3030"
       ALLOWED_HOSTS: "*"
     depends_on:
       - postgres
+  django_kredyty_html:
+    image: "farix44/django_kredyty_html"
+    ports:
+      - "80:80"
+    depends_on:
+      - django_web_app
