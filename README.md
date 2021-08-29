@@ -90,3 +90,12 @@ python3 manage.py createsuperuser
 python3 manage.py makemigrations
 
 python manage.py runserver
+
+
+KOMENDY DO DOCKERA:
+docker login
+docker build --tag farix44/django_web_app:latest .
+docker push farix44/django_web_app
+
+docker build --tag farix44/django_kredyty_html:latest .
+docker push farix44/django_kredyty_html
