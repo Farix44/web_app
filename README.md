@@ -60,3 +60,18 @@ Druga strona to zwykly html wyswietlajacy liste wszystkich wnioskow.
 terraform
 export DO_PAT=<TOKEN>
 terraform plan -var "digitalocean_token=${DO_PAT}" -var-file django_sample.tfvar
+
+vi /etc/nginx/conf.d/default.conf
+    location /api {
+        proxy_set_header X-Forwarded-Host $http_host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://django_web_app:8000;
+    }
+nginx -s reload -c /etc/nginx/nginx.conf
+
+curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "password": "admin"}' http://django_web_app:8000/api/api-token-auth/
+curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "password": "admin"}' http://localhost:8000/api/api-token-auth/
+
+python3 manage.py createsuperuser
+python3 manage.py makemigrations
+python3 manage.py migrate
