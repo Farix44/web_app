@@ -25,6 +25,7 @@ function submitNewLoan() {
         }
     }
     xhr.send(json);
+    return false;
 }
 
 // pobieranie danych z formularza do obiektu

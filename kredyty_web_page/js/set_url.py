@@ -1,4 +1,4 @@
-new_url = 'http://46.101.123.108/api/'
+new_url = 'http://167.172.176.216/api/'
 
 def read_file(file_name, replace_text = new_url):
     with open(file_name, 'r') as f:

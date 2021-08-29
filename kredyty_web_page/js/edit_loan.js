@@ -57,6 +57,7 @@ function submitEdit() {
         }
     }
     xhr.send(json);
+    return false;
 }
 
 // usuniecie wybranego kredytu (DELETE)
@@ -74,6 +75,7 @@ function submitDelete() {
         }
     }
     xhr.send(null);
+    return false;
 }
 
 

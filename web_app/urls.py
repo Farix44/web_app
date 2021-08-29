@@ -28,11 +28,11 @@ router.register(r'users', UserViewSet)   # rejestrujemy url
 # router.register(r'loans', LoansViewSet)
 
 urlpatterns = [
-    path('/api/admin/', admin.site.urls),
-    path('/api/kredyty/', include('kredyty.urls')),
-    path('/api/login/', auth_views.LoginView.as_view(), name="login"),
-    path('/api/logout/', auth_views.LogoutView.as_view(), name="logout"),
-    path('/api/kredyty/', include(urls)),
-    path('/api/api-token-auth/', obtain_auth_token),
+    path('api/admin/', admin.site.urls),
+    path('api/kredyty/', include('kredyty.urls')),
+    path('api/login/', auth_views.LoginView.as_view(), name="login"),
+    path('api/logout/', auth_views.LogoutView.as_view(), name="logout"),
+    path('api/kredyty/', include(urls)),
+    path('api/api-token-auth/', obtain_auth_token),
     path('', include(router.urls)), # '' bedzie wypelnione tym co jest wyzej w router.register
 ]
