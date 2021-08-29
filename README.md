@@ -61,17 +61,32 @@ terraform
 export DO_PAT=<TOKEN>
 terraform plan -var "digitalocean_token=${DO_PAT}" -var-file django_sample.tfvar
 
+
+-- FRONTEND
+docker exec -it docker_django-kredyty-html_1 /bin/sh
+
 vi /etc/nginx/conf.d/default.conf
     location /api {
         proxy_set_header X-Forwarded-Host $http_host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass http://django_web_app:8000;
+        proxy_pass http://django-web-app:8000;
     }
 nginx -s reload -c /etc/nginx/nginx.conf
 
-curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "password": "admin"}' http://django_web_app:8000/api/api-token-auth/
+curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "password": "admin"}' http://django-web-app:8000/api/api-token-auth/ > file
 curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "password": "admin"}' http://localhost:8000/api/api-token-auth/
 
-python3 manage.py createsuperuser
-python3 manage.py makemigrations
+-- BACKEND
+apt-get update && apt-get install curl vim
+docker-compose -f devops/docker/docker-compose.yaml up -d
+docker exec -it docker_django-web-app_1 /bin/sh
+docker-compose -f devops/docker/docker-compose.yaml stop
+docker system prune -a -f
+
+cd /usr/src/app
 python3 manage.py migrate
+python3 manage.py createsuperuser
+    admin
+python3 manage.py makemigrations
+
+python manage.py runserver
