@@ -70,6 +70,7 @@ vi /etc/nginx/conf.d/default.conf
         proxy_set_header X-Forwarded-Host $http_host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_pass http://django-web-app:8000;
+        expires -1;
     }
 nginx -s reload -c /etc/nginx/nginx.conf
 
@@ -86,9 +87,7 @@ docker system prune -a -f
 cd /usr/src/app
 python3 manage.py migrate
 python3 manage.py createsuperuser
-    admin
 python3 manage.py makemigrations
-
 python manage.py runserver
 
 
