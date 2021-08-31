@@ -18,6 +18,7 @@ from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import (
     IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly, IsAdminUser, DjangoModelPermissions)
+from rest_framework import status
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()   # co chcemy wybierac z bd
@@ -33,20 +34,27 @@ class LoansViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         if CheckLoanValidators().validate() == True:
-            loan = Loans.objects.create(first_name=request.data["first_name"],
-                                        second_name=request.data["second_name"],
-                                        amount=request.data["amount"],
-                                        period=request.data["period"],
-                                        # repayment_amount=int(request.data["amount"]) *
-                                        #                  float(ConfigData().get_data()['interest_rate']) /
-                                        #                  100 + int(request.data["amount"]) )
-                                        repayment_amount=RepaymentAmountCalculator(int(request.data["amount"]),
-                                                                                   float(ConfigData().get_data()['interest_rate'])).calculate() )
-            serializer = LoansSerializer(loan, many=False)
-            return Response(serializer.data)
+            loan = request.data
+            loan['repayment_amount'] = RepaymentAmountCalculator(int(request.data["amount"]), float(ConfigData().get_data()['interest_rate'])).calculate()
+            print(loan)
+            serializer = LoansSerializer(data=loan)
+            serializer.is_valid(raise_exception=True)    # validuje request
+            self.perform_create(serializer)   # zapisuje do bazy
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
         else:
             pass
 
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        mod_data = request.data
+        mod_data['repayment_amount'] = RepaymentAmountCalculator(int(request.data["amount"]), float(ConfigData().get_data()['interest_rate'])).calculate()
+        serializer = LoansSerializer(instance, data=mod_data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        return Response(serializer.data)
 
 # PONIEZEJ FUNKCJE DO PRZEPISANIA
 
