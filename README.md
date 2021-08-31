@@ -58,23 +58,15 @@ Druga strona to zwykly html wyswietlajacy liste wszystkich wnioskow.
 
 docker-compose:
 docker-compose -f devops/docker/docker-compose.yaml up -d
+docker-compose -f devops/docker/docker-compose.yaml stop
+docker system prune -a -f
 
 terraform
 export DO_PAT=<TOKEN>
 terraform plan -var "digitalocean_token=${DO_PAT}" -var-file django_sample.tfvar
 
-
 -- FRONTEND
 docker exec -it docker_django-kredyty-html_1 /bin/sh
-
-vi /etc/nginx/conf.d/default.conf
-    location /api {
-        proxy_set_header X-Forwarded-Host $http_host;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass http://django-web-app:8000;
-        expires -1;
-    }
-nginx -s reload -c /etc/nginx/nginx.conf
 
 curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "password": "admin"}' http://django-web-app:8000/api/api-token-auth/ > file
 curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "password": "admin"}' http://localhost:8000/api/api-token-auth/
