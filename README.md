@@ -56,6 +56,8 @@ Pierwsza strona przechodzi do logowania do panelu admina gdzie można przegladac
 
 Druga strona to zwykly html wyswietlajacy liste wszystkich wnioskow.
 
+docker-compose:
+docker-compose -f devops/docker/docker-compose.yaml up -d
 
 terraform
 export DO_PAT=<TOKEN>
