@@ -15,10 +15,11 @@ function setup_select() {
     for (let i=0; i<rec_json_obj.length; i++) {
         options.push(rec_json_obj[i]['id']);
     }
+
     for(var i = 0; i < options.length; i++) {
         var opt = options[i];
         var el = document.createElement("option");
-        el.textContent = opt;
+        el.textContent = '('+rec_json_obj[i]['id']+') '+rec_json_obj[i]['first_name']+' '+rec_json_obj[i]['second_name'];
         el.value = opt;
         select.appendChild(el);
     }
