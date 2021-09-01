@@ -26,6 +26,7 @@ services:
       DJANGO_SUPERUSER_USERNAME: "admin"
       DJANGO_SUPERUSER_EMAIL: ""
 #    command: sh -c "/usr/src/presetup-api.sh"
+#    command: sh -c ./presetup-api.sh
     depends_on:
       - postgres
   django-kredyty-html:
