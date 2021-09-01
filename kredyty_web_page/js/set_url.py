@@ -1,5 +1,5 @@
-new_url = 'http://167.172.176.216/api/'
-# new_url = 'http://127.0.0.1:8000/'
+new_url = 'http://104.248.46.73/api/'
+# new_url = 'http://127.0.0.1:8000/api/'
 
 def read_file(file_name, replace_text = new_url):
     with open(file_name, 'r') as f:
