@@ -1,7 +1,7 @@
 var received_json;
 var rec_json_obj;
 var received_token;
-var url = ${BACKEND_HOST};
+var url = 'http://127.0.0.1:8000/api/';
 
 // przy wczytywaniu strony pobiera token
 window.addEventListener( "load", function () {

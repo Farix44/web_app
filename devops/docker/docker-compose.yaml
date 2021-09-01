@@ -22,10 +22,10 @@ services:
       CORS_ALLOWED_ORIGINS: "http://django-web-app:8000"
       CORS_ALLOWED_ORIGIN_REGEXES: "http://django-web-app:8000"
       ALLOWED_HOSTS: "*"
-      DJANGO_SUPERUSER_PASSWORD: "admin"
-      DJANGO_SUPERUSER_USERNAME: "admin"
-      DJANGO_SUPERUSER_EMAIL: ""
-#    command: sh -c "/usr/src/presetup-api.sh"
+#      DJANGO_SUPERUSER_PASSWORD: "admin"
+#      DJANGO_SUPERUSER_USERNAME: "admin"
+#      DJANGO_SUPERUSER_EMAIL: ""
+    command: sh -c "/usr/src/app/presetup-api.sh"
 #    command: sh -c ./presetup-api.sh
     depends_on:
       - postgres
