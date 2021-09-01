@@ -5,8 +5,8 @@
 #fi
 python manage.py makemigrations
 python manage.py migrate
-DJANGO_SUPERUSER_PASSWORD=my_password \
-DJANGO_SUPERUSER_USERNAME=my_user \
-DJANGO_SUPERUSER_EMAIL=my_user@domain.com \
+DJANGO_SUPERUSER_PASSWORD=admin \
+DJANGO_SUPERUSER_USERNAME=admin \
+DJANGO_SUPERUSER_EMAIL=admin@example.com \
 ./manage.py createsuperuser \
 --no-input
