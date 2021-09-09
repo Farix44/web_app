@@ -36,7 +36,7 @@ function getFormData() {
         var item = elements.item(i);
         obj[item.name] = item.value;
     }
-    // console.log(JSON.stringify(obj));
+     console.log(JSON.stringify(obj));
     return obj;
 }
 
@@ -54,6 +54,7 @@ function getToken(callback) {
             if (xhr.status === 200) {
                 console.log(xhr.responseText);
                 received_token = JSON.parse(xhr.responseText)['token']
+                getData();
             } else {
                 console.error(xhr.statusText);
             }
@@ -63,4 +64,45 @@ function getToken(callback) {
         console.error(xhr.statusText);
     };
     xhr.send(JSON.stringify(send_json));
+}
+
+// pobiera liste klientow
+function getData(callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url+'kredyty/clients/', true);
+    xhr.setRequestHeader('Authorization', 'Token ' + received_token);
+    xhr.onload = function (e) {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                console.log(xhr.responseText);
+                received_json = this.responseText;
+                rec_json_obj = JSON.parse(received_json);
+//                displayData();
+                setup_select();
+            } else {
+                console.error(xhr.statusText);
+            }
+        }
+    };
+    xhr.onerror = function (e) {
+        console.error(xhr.statusText);
+    };
+    xhr.send(null);
+}
+
+// wstawia id klientow do pola select
+function setup_select() {
+    var select = document.getElementById("form_client");
+    var options = [];
+    for (let i=0; i<rec_json_obj.length; i++) {
+        options.push(rec_json_obj[i]['id']);
+    }
+
+    for(var i = 0; i < options.length; i++) {
+        var opt = options[i];
+        var el = document.createElement("option");
+        el.textContent = '('+rec_json_obj[i]['id']+') '+rec_json_obj[i]['first_name']+' '+rec_json_obj[i]['second_name'];
+        el.value = opt;
+        select.appendChild(el);
+    }
 }

@@ -34,7 +34,6 @@ function displayData() {
 
     var display_record = '';
     for (let i=0; i<client_record.length; i++) {
-        console.log(client_record[i]);
         display_record += client_record[i];
     }
     document.getElementById('loan_list').innerHTML = display_record;
