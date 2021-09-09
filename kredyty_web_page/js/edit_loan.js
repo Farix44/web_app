@@ -8,9 +8,13 @@ window.addEventListener( "load", function () {
     getToken();
 } );
 
-// wstawia id wnioskow do pola select
-function setup_select() {
-    var select = document.getElementById("select_loan");
+function test() {
+    console.log(document.getElementById("select_client").value);
+}
+
+// wstawia id i nazwe klientow do pola select_client
+function setup_select_client() {
+    var select = document.getElementById("select_client");
     var options = [];
     for (let i=0; i<rec_json_obj.length; i++) {
         options.push(rec_json_obj[i]['id']);
@@ -25,19 +29,53 @@ function setup_select() {
     }
 }
 
+// wstawia id wniosku do pola select_loan
+function setup_select_loan() {
+    var select = document.getElementById("select_loan");
+    var selected_client_id = document.getElementById("select_client").value;
+    var options = [];
+
+    // wyczyszczenie pol select
+    for (i = select.options.length-1; i >= 0; i--) {
+      select.options[i] = null;
+    }
+
+    for (let i=0; i<rec_json_obj[selected_client_id-1]['loans'].length; i++) {
+        options.push(rec_json_obj[selected_client_id-1]['loans'][i]['id']);
+    }
+
+    for(var i = 0; i < options.length; i++) {
+        var opt = options[i];
+        var el = document.createElement("option");
+        el.textContent = '(' + rec_json_obj[selected_client_id-1]['loans'][i]['id'] + ') ' +
+                         rec_json_obj[selected_client_id-1]['loans'][i]['amount'];
+        el.value = opt;
+        select.appendChild(el);
+    }
+    fillForm();
+}
+
 // wypelnia formularz danymi po wybranym id
 function fillForm() {
-    var selected_id = document.getElementById("select_loan").value;
+    var selected_client_id = document.getElementById("select_client").value;
+    var selected_loan_id = document.getElementById("select_loan").value;
+//    console.log('===== ' + selected_client_id + '  ' + selected_loan_id + ' =====');
 
     for (let i=0; i<rec_json_obj.length; i++) {
-        if (selected_id == rec_json_obj[i]['id']) {
-            document.getElementById('form_first_name').value = rec_json_obj[i]['first_name'];
-            document.getElementById('form_second_name').value = rec_json_obj[i]['second_name'];
-            document.getElementById('form_amount').value = rec_json_obj[i]['amount'];
-            document.getElementById('form_period').value = rec_json_obj[i]['period'];
-            document.getElementById('form_repayment_amount').value = rec_json_obj[i]['repayment_amount'];
+        if (selected_client_id == rec_json_obj[i]['id']) {
+            for (let j=0; j<rec_json_obj[i]['loans'].length; j++) {
+                if (selected_loan_id == rec_json_obj[i]['loans'][j]['id']) {
+                    document.getElementById("client_name").innerHTML = rec_json_obj[i]['first_name'] + ' ' + rec_json_obj[i]['second_name'];
+                    //document.getElementById('form_first_name').value = rec_json_obj[i]['first_name'];
+                    //document.getElementById('form_second_name').value = rec_json_obj[i]['second_name'];
+                    document.getElementById('form_amount').value = rec_json_obj[i]['loans'][j]['amount'];
+                    document.getElementById('form_period').value = rec_json_obj[i]['loans'][j]['period'];
+                    document.getElementById('form_repayment_amount').value = rec_json_obj[i]['loans'][j]['repayment_amount'];
+                }
+            }
         }
     }
+
 }
 
 // wysyłanie PUT zedytowanych danych z formularza
@@ -118,10 +156,10 @@ function getToken(callback) {
     xhr.send(JSON.stringify(send_json));
 }
 
-// pobiera liste wnioskow
+// pobiera liste klientow
 function getData(callback) {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", url+'kredyty/loans/', true);
+    xhr.open("GET", url+'kredyty/clients/', true);
     xhr.setRequestHeader('Authorization', 'Token ' + received_token);
     xhr.onload = function (e) {
         if (xhr.readyState === 4) {
@@ -129,7 +167,7 @@ function getData(callback) {
                 console.log(xhr.responseText);
                 received_json = this.responseText;
                 rec_json_obj = JSON.parse(received_json);
-                setup_select();
+                setup_select_client();
             } else {
                 console.error(xhr.statusText);
             }
