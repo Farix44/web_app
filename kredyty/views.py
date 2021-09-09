@@ -50,6 +50,7 @@ class LoansViewSet(viewsets.ModelViewSet):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
         mod_data = request.data
+        mod_data = mod_data.copy()
         mod_data['repayment_amount'] = RepaymentAmountCalculator(int(request.data["amount"]), float(ConfigData().get_data()['interest_rate'])).calculate()
         serializer = LoansSerializer(instance, data=mod_data, partial=partial)
         serializer.is_valid(raise_exception=True)
