@@ -10,20 +10,35 @@ window.addEventListener( "load", function () {
 
 // Display data from application kredyty.
 function displayData() {
-    // document.getElementById("request_json").innerHTML = received_json;
+//    document.getElementById("request_json").innerHTML = received_json;
+//    console.log('===== '+rec_json_obj[0]['loans'][0]['amount']+' =====');
 
-    // display data in loan list
-    var loan_id=0;
-    var loan_record = '';
+    var client_id = 0;
+    var client_record = [];
     for (let i=0; i<rec_json_obj.length; i++) {
-        loan_record += rec_json_obj[loan_id]['first_name']+' '+rec_json_obj[loan_id]['second_name']+'\n'+
-        'pożyczył/a '+rec_json_obj[loan_id]['amount']+'zł, na okres: '+rec_json_obj[loan_id]['period']+' miesięcy.'+'\n'+
-        'Do spłaty: '+rec_json_obj[loan_id]['repayment_amount']+'zł.'+'\n'+
-        '( id wniosku = '+rec_json_obj[loan_id]['id']+' )\n\n';
-        loan_id++;
+        client_record[i] = '';
+        client_record[i] += '(' + rec_json_obj[i]['id'] + ') ';
+        client_record[i] += rec_json_obj[i]['first_name'] + ' ';
+        client_record[i] += rec_json_obj[i]['second_name'] + '<br>';
+        for (let j=0; j<rec_json_obj[i]['loans'].length; j++) {
+            client_record[i] += '&nbsp;&nbsp;&nbsp;&nbsp;  (' + rec_json_obj[i]['loans'][j]['id'] + ') ';
+            client_record[i] += 'pożyczył/a ';
+            client_record[i] += rec_json_obj[i]['loans'][j]['amount'] + 'zł ';
+            client_record[i] += 'na okres ';
+            client_record[i] += rec_json_obj[i]['loans'][j]['period'] + ' miesięcy, ';
+            client_record[i] += 'do spłaty: ';
+            client_record[i] += rec_json_obj[i]['loans'][j]['repayment_amount'] + '<br>';
+        }
+        client_record[i] += '<br>';
     }
-    loan_record = loan_record.replace(/(\r\n|\n|\r)/gm, "<br>");
-    document.getElementById('loan_list').innerHTML = loan_record;
+
+    var display_record = '';
+    for (let i=0; i<client_record.length; i++) {
+        console.log(client_record[i]);
+        display_record += client_record[i];
+    }
+    document.getElementById('loan_list').innerHTML = display_record;
+
 }
 
 // pobieranie tokenu admina
@@ -55,7 +70,7 @@ function getToken(callback) {
 // pobiera liste wnioskow
 function getData(callback) {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", url+'kredyty/loans/', true);
+    xhr.open("GET", url+'kredyty/clients/', true);
     xhr.setRequestHeader('Authorization', 'Token ' + received_token);
     xhr.onload = function (e) {
         if (xhr.readyState === 4) {
