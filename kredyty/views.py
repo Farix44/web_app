@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Loans
-from .forms import LoansForm
+from .models import Loans, Clients
+# from .forms import LoansForm
 from django.contrib.auth.decorators import login_required
 # import datetime
 from datetime import datetime, timedelta
@@ -13,7 +13,7 @@ from django import forms
 # REST_FRAMEWORK:
 from rest_framework import viewsets
 from django.contrib.auth.models import User
-from .serializers import UserSerializer, LoansSerializer
+from .serializers import UserSerializer, LoansSerializer, ClientsSerializer
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import (
@@ -35,6 +35,7 @@ class LoansViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         if CheckLoanValidators().validate() == True:
             loan = request.data
+            loan = loan.copy()
             loan['repayment_amount'] = RepaymentAmountCalculator(int(request.data["amount"]), float(ConfigData().get_data()['interest_rate'])).calculate()
             print(loan)
             serializer = LoansSerializer(data=loan)
@@ -55,6 +56,12 @@ class LoansViewSet(viewsets.ModelViewSet):
         self.perform_update(serializer)
 
         return Response(serializer.data)
+
+class ClientsViewSet(viewsets.ModelViewSet):
+    queryset = Clients.objects.all()
+    serializer_class = ClientsSerializer
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsAuthenticated, )
 
 # PONIEZEJ FUNKCJE DO PRZEPISANIA
 

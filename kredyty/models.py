@@ -15,9 +15,19 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
         Token.objects.create(user=instance)
 
 
-class Loans(models.Model):
+class Clients(models.Model):
     first_name = models.CharField(max_length=64)
     second_name = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.client_record()
+
+    def client_record(self):
+        return "({}) {} {}".format(self.id, self.first_name, self.second_name)
+
+class Loans(models.Model):
+    # first_name = models.CharField(max_length=64)
+    # second_name = models.CharField(max_length=64)
     amount = models.PositiveIntegerField(default=200, validators=[MinValueValidator(ConfigData().get_data()['min_amount']),
                                                                   MaxValueValidator(ConfigData().get_data()['max_amount'])])
     period = models.PositiveSmallIntegerField(default=6, validators=[MinValueValidator(ConfigData().get_data()['min_period']),
@@ -26,9 +36,10 @@ class Loans(models.Model):
                                       validators=[MinValueValidator(ConfigData().get_data()['interest_rate']),
                                                    MaxValueValidator(ConfigData().get_data()['interest_rate'])])
     repayment_amount = models.FloatField(blank=True, null=True)
+    client = models.ForeignKey(Clients, on_delete=models.CASCADE, related_name='loans')
 
     def __str__(self):
         return self.loan_record()
 
     def loan_record(self):
-        return "{} {}: {}".format(self.first_name, self.second_name, self.amount)
+        return "({}) {}".format(self.id, self.amount)
