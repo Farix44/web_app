@@ -13,7 +13,7 @@ from django import forms
 # REST_FRAMEWORK:
 from rest_framework import viewsets
 from django.contrib.auth.models import User
-from .serializers import UserSerializer, LoansSerializer, ClientsSerializer
+from .serializers import UserSerializer, LoansSerializer, ClientsSerializer, LoansSerializerPUT
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import (
@@ -52,7 +52,7 @@ class LoansViewSet(viewsets.ModelViewSet):
         mod_data = request.data
         mod_data = mod_data.copy()
         mod_data['repayment_amount'] = RepaymentAmountCalculator(int(request.data["amount"]), float(ConfigData().get_data()['interest_rate'])).calculate()
-        serializer = LoansSerializer(instance, data=mod_data, partial=partial)
+        serializer = LoansSerializerPUT(instance, data=mod_data, partial=partial)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
 
